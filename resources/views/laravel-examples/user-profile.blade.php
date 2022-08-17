@@ -11,7 +11,7 @@
             <div class="row gx-4">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="../assets/img/bruce-mars.jpg" alt="..." class="w-100 border-radius-lg shadow-sm">
+                        <img src="../assets/img/tio-muhamad-nur.jpeg" alt="..." class="w-100 border-radius-lg shadow-sm">
                         <a href="javascript:;" class="btn btn-sm btn-icon-only bg-gradient-light position-absolute bottom-0 end-0 mb-n2 me-n2">
                             <i class="fa fa-pen top-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Image"></i>
                         </a>
@@ -20,10 +20,10 @@
                 <div class="col-auto my-auto">
                     <div class="h-100">
                         <h5 class="mb-1">
-                            {{ __('Alec Thompson') }}
+                            {{ auth()->user()->name }}
                         </h5>
                         <p class="mb-0 font-weight-bold text-sm">
-                            {{ __(' CEO / Co-Founder') }}
+                            {{ __(' Track Examination Staff') }}
                         </p>
                     </div>
                 </div>
