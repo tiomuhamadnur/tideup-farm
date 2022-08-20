@@ -3,9 +3,11 @@
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\ManagementUserController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\WeselController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
@@ -41,9 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('rtl');
 	})->name('rtl');
 
-	Route::get('user-management', function () {
-		return view('laravel-examples/user-management');
-	})->name('user-management');
+	Route::get('user-management', [ManagementUserController::class, 'index'])->name('user-management');
 
 	Route::get('tables', function () {
 		return view('tables');
@@ -69,9 +69,13 @@ Route::group(['middleware' => 'auth'], function () {
 	})->name('sign-up');
 
 	// WESEL
-	Route::get('wesel', function () {
-		return view('wesel.index');
-	})->name('wesel');
+	Route::get('wesel', [WeselController::class, 'index'])->name('wesel');
+	Route::get('/wesel/show-detail-wesel', [WeselController::class, 'show_detail_wesel'])->name('show-detail-wesel');
+	Route::get('create-job-wesel', [WeselController::class, 'create'])->name('create-job-wesel');
+	Route::post('/wesel/store', [WeselController::class, 'store'])->name('wesel-store');
+	Route::get('/edit-job-wesel/{id}', [WeselController::class, 'edit'])->name('edit-job-wesel');
+	Route::get('/export-job-wesel/{id}', [WeselController::class, 'export'])->name('export-job-wesel');
+	Route::get('/wesel/delete/{id}', [WeselController::class, 'destroy']);
 });
 
 

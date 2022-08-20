@@ -2,7 +2,7 @@
 
 @section('auth')
 
-
+    @include('sweetalert::alert')
     @if(\Request::is('static-sign-up')) 
         @include('layouts.navbars.guest.nav')
         @yield('content')

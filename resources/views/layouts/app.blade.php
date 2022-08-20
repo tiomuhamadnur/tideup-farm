@@ -34,8 +34,10 @@
 <body class="g-sidenav-show  bg-gray-100 {{ (\Request::is('rtl') ? 'rtl' : (Request::is('virtual-reality') ? 'virtual-reality' : '')) }} ">
   @auth
     @yield('auth')
+    @include('sweetalert::alert')
   @endauth
   @guest
+  @include('sweetalert::alert')
     @yield('guest')
   @endguest
 
@@ -70,6 +72,7 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+  @include('sweetalert::alert')
 </body>
 
 </html>
