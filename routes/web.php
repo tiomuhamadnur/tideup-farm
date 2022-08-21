@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
 	})->name('rtl');
 
 	Route::get('user-management', [ManagementUserController::class, 'index'])->name('user-management');
-	Route::get('user-management/edit-role', [ManagementUserController::class, 'edit_role'])->name('update-jabatan-user');
+	Route::get('edit-jabatan-user-{id}', [ManagementUserController::class, 'edit_role'])->name('edit-jabatan-user');
 	Route::put('user-management/{id}', [ManagementUserController::class, 'update_role'])->name('update-role-user');
 
 	Route::get('tables', function () {

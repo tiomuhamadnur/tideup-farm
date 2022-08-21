@@ -62,10 +62,10 @@ class ManagementUserController extends Controller
         //
     }
 
-    public function edit_role()
+    public function edit_role($id)
     {
-        // $users = User::find($id);
-        return view('user.edit-user-management');
+        $user = User::find($id);
+        return view('user.edit-user-management', compact(['user']));
     }
 
     public function update_role(Request $request, $id)
@@ -74,7 +74,7 @@ class ManagementUserController extends Controller
         $user->update([
             'role' => $request->role
         ]);
-        Alert::success('Yaaassh!', 'Role user berhasil diubah');
+        Alert::success('Yaaassh!', 'Jabatan user berhasil diubah');
         return redirect('/user-management');
     }
 

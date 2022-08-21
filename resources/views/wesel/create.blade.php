@@ -49,7 +49,7 @@
                                         </select>
                                     </div>
                                     <div class="input-group mb-1">
-                                        <span class="input-group-text">2.</span>
+                                        <span class="input-group-text">4.</span>
                                         <select class="form-control" aria-label="Default select example" name="nama_tim_4">
                                             <option value="" disabled selected>Pilih nama anggota</option>
                                             @foreach ($users as $item)
@@ -62,8 +62,8 @@
                                     <label class="form-label">
                                         Nama Line
                                     </label> <br>
-                                    <select class="form-control" aria-label="Default select example" name="nama_line">
-                                        <option selected disabled>Pilih nama line</option>
+                                    <select class="form-control" aria-label="Default select example" name="nama_line" required>
+                                        <option value="" selected disabled>Pilih nama line</option>
                                         <option value="UT">Up Track</option>
                                         <option value="DT">Down Track</option>
                                     </select>
@@ -72,31 +72,31 @@
                                     <label class="form-label">
                                         Nama Stasiun / Area
                                     </label>
-                                    <input type="text" class="form-control" name="nama_stasiun">
+                                    <input type="text" class="form-control" name="nama_stasiun" style="text-transform: uppercase" required>
                                 </div>
                                 <div class="mb-0">
                                     <label class="form-label">
                                         Nama Wesel
                                     </label>
-                                    <input type="text" class="form-control" name="nama_wesel">
+                                    <input type="text" class="form-control" name="nama_wesel" style="text-transform: uppercase" required>
                                 </div>
                                 <div class="mb-0">
                                     <label class="form-label">
                                         Tanggal Kerja
                                     </label>
-                                    <input type="date" class="form-control" name="tanggal_kerja">
+                                    <input type="date" class="form-control" name="tanggal_kerja" required>
                                 </div>
                                 <div class="mb-0">
                                     <label class="form-label">
                                         Foto Kegiatan 1
                                     </label>
-                                    <input name="foto_kegiatan_1" for="foto_kegiatan_1" id="foto_kegiatan_1" type="file" class="form-control">
+                                    <input name="foto_kegiatan_1" for="foto_kegiatan_1" id="foto_kegiatan_1" type="file" class="form-control" required>
                                 </div>
                                 <div class="mb-0">
                                     <label class="form-label">
                                         Foto Kegiatan 2
                                     </label>
-                                    <input name="foto_kegiatan_2" for="foto_kegiatan_2" id="foto_kegiatan_2" type="file" class="form-control">
+                                    <input name="foto_kegiatan_2" for="foto_kegiatan_2" id="foto_kegiatan_2" type="file" class="form-control" required>
                                 </div>
 
                                 {{-- <hr class="mt-5 mb-0">
@@ -125,61 +125,61 @@
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-warning font-weight-bold"><b>1</b></span>
-                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_1">
+                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_1" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-success font-weight-bold"><b>1</b></span>
-                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_1">
+                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_1" required>
                                 </div>
                                 <br>
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-warning font-weight-bold"><b>2</b></span>
-                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_2">
+                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_2" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-success font-weight-bold"><b>2</b></span>
-                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_2">
+                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_2" required>
                                 </div>
                                 <br>
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-warning font-weight-bold"><b>2'</b></span>
-                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_2A">
+                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_2A" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-success font-weight-bold"><b>2'</b></span>
-                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_2A">
+                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_2A" required>
                                 </div>
                                 <br>
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-warning font-weight-bold"><b>2''</b></span>
-                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_2AA">
+                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_2AA" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-success font-weight-bold"><b>2''</b></span>
-                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_2AA">
+                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_2AA" required>
                                 </div>
                                 <br>
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-warning font-weight-bold"><b>3</b></span>
-                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_3">
+                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_3" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-success font-weight-bold"><b>3</b></span>
-                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_3">
+                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_3" required>
                                 </div>
                                 <br>
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-warning font-weight-bold"><b>3'</b></span>
-                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_3A">
+                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_3A" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-success font-weight-bold"><b>3'</b></span>
-                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_3A">
+                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_3A" required>
                                 </div>
                                 <br>
 
@@ -201,21 +201,21 @@
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-warning font-weight-bold"><b>5</b></span>
-                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_5">
+                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_5" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-success font-weight-bold"><b>5</b></span>
-                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_5">
+                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_5" required>
                                 </div>
                                 <br>
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-warning font-weight-bold"><b>5'</b></span>
-                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_5A">
+                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_5A" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-success font-weight-bold"><b>5'</b></span>
-                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_5A">
+                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_5A" required>
                                 </div>
                                 <br>
 
@@ -227,61 +227,61 @@
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-warning font-weight-bold"><b>7</b></span>
-                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_7">
+                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_7" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-success font-weight-bold"><b>7</b></span>
-                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_7">
+                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_7" required>
                                 </div>
                                 <br>
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-warning font-weight-bold"><b>7'</b></span>
-                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_7A">
+                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_7A" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-success font-weight-bold"><b>7'</b></span>
-                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_7A">
+                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_7A" required>
                                 </div>
                                 <br>
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-danger font-weight-bold" style="color: white"><b>8</b></span>
-                                    <input type="text" class="form-control" placeholder="  Back Gauge" name="BG_8">
+                                    <input type="text" class="form-control" placeholder="  Back Gauge" name="BG_8" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-success font-weight-bold"><b>8</b></span>
-                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_8">
+                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_8" required>
                                 </div>
                                 <br>
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-danger font-weight-bold" style="color: white"><b>8'</b></span>
-                                    <input type="text" class="form-control" placeholder="  Back Gauge" name="BG_8A">
+                                    <input type="text" class="form-control" placeholder="  Back Gauge" name="BG_8A" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-success font-weight-bold"><b>8'</b></span>
-                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_8A">
+                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_8A" required>
                                 </div>
                                 <br>
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-warning font-weight-bold"><b>10</b></span>
-                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_10">
+                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_10" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-success font-weight-bold"><b>10</b></span>
-                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_10">
+                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_10" required>
                                 </div>
                                 <br>
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-warning font-weight-bold"><b>10'</b></span>
-                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_10A">
+                                    <input type="text" class="form-control" placeholder="  Track Gauge" name="TG_10A" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-success font-weight-bold"><b>10'</b></span>
-                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_10A">
+                                    <input type="text" class="form-control" placeholder="  Cross Level" name="CL_10A" required>
                                 </div>
 
                                 <hr class="mt-5 mb-0">
@@ -289,52 +289,52 @@
                                 <hr class="mt-0 mb-3">
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-dark font-weight-bold" style="color: white"><b>2</b></span>
-                                    <input type="text" class="form-control" placeholder="  Longitudinal Level" name="LL_2">
+                                    <input type="text" class="form-control" placeholder="  Longitudinal Level" name="LL_2" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-info font-weight-bold"><b>2</b></span>
-                                    <input type="text" class="form-control" placeholder="  Alignment" name="AL_2">
+                                    <input type="text" class="form-control" placeholder="  Alignment" name="AL_2" required>
                                 </div>
                                 <br>
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-dark font-weight-bold" style="color: white"><b>5</b></span>
-                                    <input type="text" class="form-control" placeholder="  Longitudinal Level" name="LL_5">
+                                    <input type="text" class="form-control" placeholder="  Longitudinal Level" name="LL_5" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-info font-weight-bold"><b>5</b></span>
-                                    <input type="text" class="form-control" placeholder="  Alignment" name="AL_5">
+                                    <input type="text" class="form-control" placeholder="  Alignment" name="AL_5" required>
                                 </div>
                                 <br>
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-dark font-weight-bold" style="color: white"><b>5'</b></span>
-                                    <input type="text" class="form-control" placeholder="  Longitudinal Level" name="LL_5A">
+                                    <input type="text" class="form-control" placeholder="  Longitudinal Level" name="LL_5A" required>
                                 </div>
                                 <div class="input-group mb-0">
                                     <span class="input-group-text bg-info font-weight-bold"><b>5'</b></span>
                                     <span class="input-group-text bg-secondary font-weight-bold"><b>1/2</b></span>
-                                    <input type="text" class="form-control" placeholder="  Alignment" name="AL_5A_1per2">
+                                    <input type="text" class="form-control" placeholder="  Alignment" name="AL_5A_1per2" required>
                                 </div>
                                 <div class="input-group mb-0">
                                     <span class="input-group-text bg-info font-weight-bold"><b>5'</b></span>
                                     <span class="input-group-text bg-secondary font-weight-bold"><b>1/4</b></span>
-                                    <input type="text" class="form-control" placeholder="  Alignment" name="AL_5A_1per4">
+                                    <input type="text" class="form-control" placeholder="  Alignment" name="AL_5A_1per4" required>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text bg-info font-weight-bold"><b>5'</b></span>
                                     <span class="input-group-text bg-secondary font-weight-bold"><b>3/4</b></span>
-                                    <input type="text" class="form-control" placeholder="  Alignment" name="AL_5A_3per4">
+                                    <input type="text" class="form-control" placeholder="  Alignment" name="AL_5A_3per4" required>
                                 </div>
                                 <br>
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-dark font-weight-bold" style="color: white"><b>9</b></span>
-                                    <input type="text" class="form-control" placeholder="  Longitudinal Level" name="LL_9">
+                                    <input type="text" class="form-control" placeholder="  Longitudinal Level" name="LL_9" required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-info font-weight-bold"><b>9</b></span>
-                                    <input type="text" class="form-control" placeholder="  Alignment" name="AL_9">
+                                    <input type="text" class="form-control" placeholder="  Alignment" name="AL_9" required>
                                 </div>
 
 

@@ -19,7 +19,7 @@ class WeselController extends Controller
     public function show_detail_wesel()
     {
         $users = User::orderBy('name', 'ASC')->get();
-        Alert::image('', 'Detail Wesel', '/assets/img/panduan.PNG', '', '', 'detail-wesel');
+        Alert::image('', 'Detail Turnout Wesel', '/assets/img/panduan.PNG', '900px', '', 'detail-wesel')->width('900px')->persistent('Dismiss');
         return view('wesel.create', compact(['users']));
     }
 
@@ -37,7 +37,6 @@ class WeselController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
         $request->validate([
             'foto_kegiatan_1' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'foto_kegiatan_2' => 'image|mimes:jpeg,png,jpg,gif,svg',

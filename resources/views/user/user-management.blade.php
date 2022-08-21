@@ -66,12 +66,9 @@
                                         <span class="text-secondary text-xs font-weight-bold">{{ $item->created_at }}</span>
                                     </td>
                                     <td class="text-center">
-                                        <a href="/user-management/edit-role" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
+                                        <a href="/edit-jabatan-user-{{ $item->id }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit jabatan user">
                                             <i class="fas fa-user-edit text-secondary"></i>
                                         </a>
-                                        <span>
-                                            <i class="cursor-pointer fas fa-trash text-secondary"></i>
-                                        </span>
                                     </td>
                                 </tr>
                                 @endforeach
