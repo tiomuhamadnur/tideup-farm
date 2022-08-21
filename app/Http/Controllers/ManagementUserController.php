@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ManagementUserController extends Controller
 {
@@ -15,7 +16,7 @@ class ManagementUserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('laravel-examples.user-management', compact(['users']));
+        return view('user.user-management', compact(['users']));
     }
 
     /**
@@ -59,6 +60,22 @@ class ManagementUserController extends Controller
     public function edit($id)
     {
         //
+    }
+
+    public function edit_role()
+    {
+        // $users = User::find($id);
+        return view('user.edit-user-management');
+    }
+
+    public function update_role(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->update([
+            'role' => $request->role
+        ]);
+        Alert::success('Yaaassh!', 'Role user berhasil diubah');
+        return redirect('/user-management');
     }
 
     /**

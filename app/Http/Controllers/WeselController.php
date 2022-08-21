@@ -112,13 +112,17 @@ class WeselController extends Controller
 
     public function edit($id)
     {
+        $users = User::orderBy('name', 'ASC')->get();
         $wesel = Wesel::find($id);
-        return view('wesel.edit', compact(['wesel']));
+        return view('wesel.edit', compact(['wesel', 'users']));
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $wesel = Wesel::find($id);
+        $wesel->update($request->except(['_token', 'submit']));
+        Alert::success('Yuhuu!', 'Job wesel berhasil dimutakhirkan');
+        return redirect('/wesel');
     }
 
     public function destroy($id)

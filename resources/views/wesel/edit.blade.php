@@ -21,11 +21,41 @@
                             <form action="/update-job-wesel/{{ $wesel->id }}" method="POST">
                                 @method('put')
                                 @csrf
-                                <div class="mb-0">
-                                    <label class="form-label">
-                                        Nama PIC
-                                    </label>
-                                    <input type="text" class="form-control" name="nama_pic" value="{{ $wesel->nama_pic }}">
+                                <label class="form-label">
+                                    Nama Anggota Tim
+                                </label>
+                                <div class="input-group mb-1">
+                                    <span class="input-group-text">1.</span>
+                                    <select class="form-control" aria-label="Default select example" name="user_id">
+                                        <option value="{{ auth()->user()->id }}" selected>{{ auth()->user()->name }}</option>
+                                    </select>
+                                </div>
+                                <div class="input-group mb-1">
+                                    <span class="input-group-text">2.</span>
+                                    <select class="form-control" aria-label="Default select example" name="nama_tim_2">
+                                        <option value="{{ $wesel->nama_tim_2 }}" disabled selected>{{ $wesel->nama_tim_2 }}</option>
+                                        @foreach ($users as $item)
+                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="input-group mb-1">
+                                    <span class="input-group-text">3.</span>
+                                    <select class="form-control" aria-label="Default select example" name="nama_tim_3">
+                                        <option value="{{ $wesel->nama_tim_3 }}" disabled selected>{{ $wesel->nama_tim_3 }}</option>
+                                        @foreach ($users as $item)
+                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="input-group mb-1">
+                                    <span class="input-group-text">2.</span>
+                                    <select class="form-control" aria-label="Default select example" name="nama_tim_4">
+                                        <option value="{{ $wesel->nama_tim_4 }}" disabled selected>{{ $wesel->nama_tim_4 }}</option>
+                                        @foreach ($users as $item)
+                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="mb-0">
                                     <label class="form-label">

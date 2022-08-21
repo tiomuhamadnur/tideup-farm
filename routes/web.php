@@ -44,6 +44,8 @@ Route::group(['middleware' => 'auth'], function () {
 	})->name('rtl');
 
 	Route::get('user-management', [ManagementUserController::class, 'index'])->name('user-management');
+	Route::get('user-management/edit-role', [ManagementUserController::class, 'edit_role'])->name('update-jabatan-user');
+	Route::put('user-management/{id}', [ManagementUserController::class, 'update_role'])->name('update-role-user');
 
 	Route::get('tables', function () {
 		return view('tables');
@@ -74,6 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('create-job-wesel', [WeselController::class, 'create'])->name('create-job-wesel');
 	Route::post('/wesel/store', [WeselController::class, 'store'])->name('wesel-store');
 	Route::get('/edit-job-wesel/{id}', [WeselController::class, 'edit'])->name('edit-job-wesel');
+	Route::put('/update-job-wesel/{id}', [WeselController::class, 'update'])->name('update-job-wesel');
 	Route::get('/export-job-wesel/{id}', [WeselController::class, 'export'])->name('export-job-wesel');
 	Route::get('/wesel/delete/{id}', [WeselController::class, 'destroy']);
 });
