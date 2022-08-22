@@ -60,7 +60,7 @@
         </div>
 
         <div class="col-4">
-            <img src="../assets/img/panduan.PNG" style="text-align:left; width:350px;" class="mt-4">
+            <img src="../assets/img/panduan2.PNG" style="text-align:left; width:350px;" class="mt-4">
         </div>
     </div>
 

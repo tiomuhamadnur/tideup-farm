@@ -23,13 +23,13 @@
                                         ID
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        PIC Name
+                                        Nama Tim
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Wesel ID
+                                        Nama Wesel
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Creation Date
+                                        Tanggal Pengerjaan
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Action
@@ -46,10 +46,10 @@
                                     </td>
                                     <td class="text-left">
                                         <p class="text-xs font-weight-bold mb-0">
-                                            {{ $item->user->name }}, <br> 
-                                            {{ $item->nama_tim_2 }}, <br> 
-                                            {{ $item->nama_tim_2 }}, <br> 
-                                            {{ $item->nama_tim_3 }}
+                                            {{ $item->user->name }} <br> 
+                                            {{ $item->nama_tim_2 }} <br> 
+                                            {{ $item->nama_tim_3 }} <br> 
+                                            {{ $item->nama_tim_4 }}
                                         </p>
                                     </td>
                                     <td class="text-center">

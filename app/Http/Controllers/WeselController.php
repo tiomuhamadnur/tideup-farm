@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
+use App\Models\DataWesel;
 use App\Models\User;
 use App\Models\Wesel;
 use Illuminate\Http\Request;
@@ -19,8 +21,10 @@ class WeselController extends Controller
     public function show_detail_wesel()
     {
         $users = User::orderBy('name', 'ASC')->get();
+        $area = Area::all();
+        $data_wesel = DataWesel::all();
         Alert::image('', 'Detail Turnout Wesel', '/assets/img/panduan.PNG', '900px', '', 'detail-wesel')->width('900px')->persistent('Dismiss');
-        return view('wesel.create', compact(['users']));
+        return view('wesel.create', compact(['users', 'area', 'data_wesel']));
     }
 
     public function export($id)
@@ -32,7 +36,9 @@ class WeselController extends Controller
     public function create()
     {
         $users = User::orderBy('name', 'ASC')->get();
-        return view('wesel.create', compact(['users']));
+        $area = Area::all();
+        $data_wesel = DataWesel::all();
+        return view('wesel.create', compact(['users', 'area', 'data_wesel']));
     }
 
     public function store(Request $request)

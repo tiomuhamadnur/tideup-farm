@@ -11,7 +11,7 @@
                         <div>
                             <h5 class="mb-0">Entry Data</h5>
                         </div>
-                        <a href="{{ route('show-detail-wesel') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Detail Ilustration">&nbsp; Show Measurement</a>
+                        <a href="{{ route('show-detail-wesel') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Detail Ilustration">&nbsp; Detail Measurement</a>
                     </div>
                     <br>
                 </div>
@@ -33,7 +33,7 @@
                                     <div class="input-group mb-1">
                                         <span class="input-group-text">2.</span>
                                         <select class="form-control" aria-label="Default select example" name="nama_tim_2">
-                                            <option value="" disabled selected>Pilih nama anggota</option>
+                                            <option value="" disabled selected>- Pilih nama anggota -</option>
                                             @foreach ($users as $item)
                                             <option value="{{ $item->name }}">{{ $item->name }}</option>
                                             @endforeach
@@ -42,7 +42,7 @@
                                     <div class="input-group mb-1">
                                         <span class="input-group-text">3.</span>
                                         <select class="form-control" aria-label="Default select example" name="nama_tim_3">
-                                            <option value="" disabled selected>Pilih nama anggota</option>
+                                            <option value="" disabled selected>- Pilih nama anggota -</option>
                                             @foreach ($users as $item)
                                             <option value="{{ $item->name }}">{{ $item->name }}</option>
                                             @endforeach
@@ -51,7 +51,7 @@
                                     <div class="input-group mb-1">
                                         <span class="input-group-text">4.</span>
                                         <select class="form-control" aria-label="Default select example" name="nama_tim_4">
-                                            <option value="" disabled selected>Pilih nama anggota</option>
+                                            <option value="" disabled selected>- Pilih nama anggota -</option>
                                             @foreach ($users as $item)
                                             <option value="{{ $item->name }}">{{ $item->name }}</option>
                                             @endforeach
@@ -63,8 +63,9 @@
                                         Nama Line
                                     </label> <br>
                                     <select class="form-control" aria-label="Default select example" name="nama_line" required>
-                                        <option value="" selected disabled>Pilih nama line</option>
+                                        <option value="" selected disabled>- Pilih nama line -</option>
                                         <option value="UT">Up Track</option>
+                                        <option value="MT">Middle Track</option>
                                         <option value="DT">Down Track</option>
                                     </select>
                                 </div>
@@ -72,13 +73,23 @@
                                     <label class="form-label">
                                         Nama Stasiun / Area
                                     </label>
-                                    <input type="text" class="form-control" name="nama_stasiun" style="text-transform: uppercase" required>
+                                    <select class="form-control" aria-label="Default select example" name="nama_stasiun" required>
+                                        <option value="" selected disabled>- Pilih nama area -</option>
+                                        @foreach ($area as $item)
+                                        <option value="{{ $item->kode }}">{{ $item->kode }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="mb-0">
                                     <label class="form-label">
                                         Nama Wesel
                                     </label>
-                                    <input type="text" class="form-control" name="nama_wesel" style="text-transform: uppercase" required>
+                                    <select class="form-control" aria-label="Default select example" name="nama_wesel" required>
+                                        <option value="" selected disabled>- Pilih nama wesel -</option>
+                                        @foreach ($data_wesel as $item)
+                                        <option value="{{ $item->nama_wesel }}">{{ $item->nama_wesel }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="mb-0">
                                     <label class="form-label">

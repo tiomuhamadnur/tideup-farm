@@ -27,8 +27,9 @@
                                 <div class="input-group mb-1">
                                     <span class="input-group-text">1.</span>
                                     <select class="form-control" aria-label="Default select example" name="user_id">
-                                        <option value="{{ auth()->user()->id }}" selected>{{ auth()->user()->name }}</option>
+                                        <option value="{{ $wesel->user->id }}" disabled selected>{{ $wesel->user->name }}</option>
                                     </select>
+
                                 </div>
                                 <div class="input-group mb-1">
                                     <span class="input-group-text">2.</span>
@@ -69,15 +70,19 @@
                                 </div>
                                 <div class="mb-0">
                                     <label class="form-label">
-                                        Nama Stasiun / Area
+                                        Nama Stasiun/Area
                                     </label>
-                                    <input type="text" class="form-control" name="nama_stasiun" value="{{ $wesel->nama_stasiun }}">
+                                    <select class="form-control" aria-label="Default select example" name="nama_stasiun" required>
+                                        <option value="{{ $wesel->nama_stasiun }}" selected>{{ $wesel->nama_stasiun }}</option>
+                                    </select>
                                 </div>
                                 <div class="mb-0">
                                     <label class="form-label">
                                         Nama Wesel
                                     </label>
-                                    <input type="text" class="form-control" name="nama_wesel" value="{{ $wesel->nama_wesel }}">
+                                    <select class="form-control" aria-label="Default select example" name="nama_wesel" required>
+                                        <option value="{{ $wesel->nama_wesel }}" selected>{{ $wesel->nama_wesel }}</option>
+                                    </select>
                                 </div>
                                 <div class="mb-0">
                                     <label class="form-label">
