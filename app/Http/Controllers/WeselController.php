@@ -27,6 +27,14 @@ class WeselController extends Controller
         return view('wesel.create', compact(['users', 'area', 'data_wesel']));
     }
 
+    public function show_detail_wesel_edit($id)
+    {
+        $users = User::orderBy('name', 'ASC')->get();
+        $wesel = Wesel::find($id);
+        Alert::image('', 'Detail Turnout Wesel', '/assets/img/panduan.PNG', '900px', '', 'detail-wesel')->width('900px')->persistent('Dismiss');
+        return view('wesel.edit', compact(['wesel', 'users']));
+    }
+
     public function export($id)
     {
         $wesel = Wesel::find($id);

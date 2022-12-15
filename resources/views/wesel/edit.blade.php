@@ -11,7 +11,7 @@
                         <div>
                             <h5 class="mb-0">Edit Data</h5>
                         </div>
-                        <a href="{{ route('show-detail-wesel') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Detail Ilustration">&nbsp; Show Measurement</a>
+                        {{-- <a href="/wesel/show-detail-wesel/{{ $wesel->id }}" class="btn bg-gradient-primary btn-sm mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Detail Ilustration">&nbsp; Show Measurement</a> --}}
                     </div>
                     <br>
                 </div>

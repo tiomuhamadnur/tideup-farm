@@ -11,7 +11,7 @@
             <div class="row gx-4">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="../assets/img/tio-muhamad-nur.jpeg" alt="..." class="w-100 border-radius-lg shadow-sm">
+                        <img src="{{ asset('assets/img/tio-muhamad-nur.jpeg') }}" alt="..." class="w-100 border-radius-lg shadow-sm">
                         <a href="javascript:;" class="btn btn-sm btn-icon-only bg-gradient-light position-absolute bottom-0 end-0 mb-n2 me-n2">
                             <i class="fa fa-pen top-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Image"></i>
                         </a>
@@ -107,7 +107,7 @@
                             <div class="form-group">
                                 <label for="user.phone" class="form-control-label">{{ __('No. Telepon') }}</label>
                                 <div class="@error('user.phone')border border-danger rounded-3 @enderror">
-                                    <input class="form-control" type="text" placeholder="08********" id="number" name="phone" value="{{ auth()->user()->phone }}">
+                                    <input class="form-control" type="text" placeholder="08********" name="phone" value="{{ auth()->user()->phone }}">
                                         @error('phone')
                                             <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                         @enderror

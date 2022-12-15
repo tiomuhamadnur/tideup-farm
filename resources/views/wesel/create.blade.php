@@ -11,7 +11,7 @@
                         <div>
                             <h5 class="mb-0">Entry Data</h5>
                         </div>
-                        <a href="{{ route('show-detail-wesel') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button" data-bs-toggle="tooltip" data-bs-original-title="Detail Ilustration">&nbsp; Detail Measurement</a>
+                        <a href="{{ route('show-detail-wesel') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button"  data-bs-toggle="tooltip" data-bs-original-title="Detail Ilustration">&nbsp; Detail Measurement</a>
                     </div>
                     <br>
                 </div>
@@ -73,7 +73,7 @@
                                     <label class="form-label">
                                         Nama Stasiun / Area
                                     </label>
-                                    <select class="form-control" aria-label="Default select example" name="nama_stasiun" required>
+                                    <select id="pic-changer" class="form-control" aria-label="Default select example" name="nama_stasiun" required>
                                         <option value="" selected disabled>- Pilih nama area -</option>
                                         @foreach ($area as $item)
                                         <option value="{{ $item->kode }}">{{ $item->kode }}</option>
@@ -133,6 +133,14 @@
                                 <hr class="mt-5 mb-0">
                                 <h5 class="mt-0 mb-0 font-weight-bold text-center">TRACK GAUGE</h5>
                                 <hr class="mt-0 mb-3">
+
+                                <img id="wesel-10" style="display:none" class="img-fluid mb-1" src="assets/img/detail-wesel/1-10.PNG" alt="">
+                                <img id="wesel-8" style="display:none" class="img-fluid mb-1" src="assets/img/detail-wesel/1-8.PNG" alt="">
+
+                                {{-- <div class="btn-group">
+                                    <input type="checkbox" id="myCheck8" onclick="myFunction()">
+                                    <input type="checkbox" id="myCheck10" onclick="myFunction()">
+                                </div> --}}
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text bg-warning font-weight-bold"><b>1</b></span>
@@ -361,5 +369,6 @@
         </div>
     </div>
 </div>
+
 
 @endsection

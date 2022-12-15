@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\KambingController;
+use App\Http\Controllers\LemburController;
 use App\Http\Controllers\ManagementUserController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
@@ -71,14 +74,31 @@ Route::group(['middleware' => 'auth'], function () {
 	})->name('sign-up');
 
 	// WESEL
-	Route::get('wesel', [WeselController::class, 'index'])->name('wesel');
-	Route::get('/wesel/show-detail-wesel', [WeselController::class, 'show_detail_wesel'])->name('show-detail-wesel');
-	Route::get('create-job-wesel', [WeselController::class, 'create'])->name('create-job-wesel');
-	Route::post('/wesel/store', [WeselController::class, 'store'])->name('wesel-store');
-	Route::get('/edit-job-wesel/{id}', [WeselController::class, 'edit'])->name('edit-job-wesel');
-	Route::put('/update-job-wesel/{id}', [WeselController::class, 'update'])->name('update-job-wesel');
-	Route::get('/export-job-wesel/{id}', [WeselController::class, 'export'])->name('export-job-wesel');
-	Route::get('/wesel/delete/{id}', [WeselController::class, 'destroy']);
+	// Route::get('wesel', [WeselController::class, 'index'])->name('wesel');
+	// Route::get('/wesel/show-detail-wesel', [WeselController::class, 'show_detail_wesel'])->name('show-detail-wesel');
+	// Route::get('/wesel/show-detail-wesel/{id}', [WeselController::class, 'show_detail_wesel_edit'])->name('show-detail-wesel-edit');
+	// Route::get('create-job-wesel', [WeselController::class, 'create'])->name('create-job-wesel');
+	// Route::post('/wesel/store', [WeselController::class, 'store'])->name('wesel-store');
+	// Route::get('/edit-job-wesel/{id}', [WeselController::class, 'edit'])->name('edit-job-wesel');
+	// Route::put('/update-job-wesel/{id}', [WeselController::class, 'update'])->name('update-job-wesel');
+	// Route::get('/export-job-wesel/{id}', [WeselController::class, 'export'])->name('export-job-wesel');
+	// Route::get('/wesel/delete/{id}', [WeselController::class, 'destroy']);
+
+	// LEMBUR
+	Route::controller(LemburController::class)->group(function () {
+		Route::get('/lembur', 'index')->name('lembur');
+		Route::put('/lembur/new', 'store');
+		Route::get('/lembur/submit/{id}', 'submit');
+		Route::delete('/lembur/delete/{id}', 'destroy')->name('lembur.destroy');
+	});
+
+	// KAMBING
+	Route::controller(KambingController::class)->group(function () {
+		Route::get('/kambing', 'index')->name('kambing.index');
+		Route::post('/kambing', 'store')->name('kambing.store');
+	});
+
+	Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 });
 
 
