@@ -19,37 +19,46 @@ class UserSeeder extends Seeder
             [
                 [
                     'id' => 1,
-                    'name' => 'Dede Irfan',
-                    'email' => 'dedeirfan@gmail.com',
-                    'role' => 'Staff Maintenance',
+                    'name' => 'Tio Muhamad Nur',
+                    'email' => 'tiomuhamadnur@gmail.com',
+                    'role' => 'admin',
                     'password' => Hash::make('admin'),
                     'created_at' => now(),
                     'updated_at' => now()
                 ],
                 [
                     'id' => 2,
-                    'name' => 'Tio Muhamad Nur',
-                    'email' => 'tiomuhamadnur@gmail.com',
-                    'role' => 'Staff Maintenance',
-                    'password' => Hash::make('admin'),
+                    'name' => 'Dede Irfan',
+                    'email' => 'dedeirfan@gmail.com',
+                    'role' => 'investor',
+                    'password' => Hash::make('123456'),
                     'created_at' => now(),
                     'updated_at' => now()
                 ],
                 [
                     'id' => 3,
                     'name' => 'Muhamad Dani Taufiq',
-                    'email' => 'tdani@gmail.com',
-                    'role' => 'Staff Maintenance',
-                    'password' => Hash::make('admin'),
+                    'email' => 'dani@gmail.com',
+                    'role' => 'investor',
+                    'password' => Hash::make('123456'),
                     'created_at' => now(),
                     'updated_at' => now()
                 ],
                 [
                     'id' => 4,
-                    'name' => 'Irfan',
-                    'email' => 'irfan@gmail.com',
-                    'role' => 'Staff Maintenance',
-                    'password' => Hash::make('admin'),
+                    'name' => 'Eko Aditya Susanto',
+                    'email' => 'eko@gmail.com',
+                    'role' => 'investor',
+                    'password' => Hash::make('123456'),
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+                [
+                    'id' => 5,
+                    'name' => 'Johari',
+                    'email' => 'johari@gmail.com',
+                    'role' => 'pengelola',
+                    'password' => Hash::make('123456'),
                     'created_at' => now(),
                     'updated_at' => now()
                 ],

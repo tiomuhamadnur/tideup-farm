@@ -1,10 +1,10 @@
   <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
   <footer class="footer py-5">
-    <div class="container">
-      <div class="row">
-        @if (!auth()->user() || \Request::is('static-sign-up')) 
-          <div class="col-lg-8 mx-auto text-center mb-4 mt-2">
-              {{-- <a href="https://dribbble.com/creativetim" target="_blank" class="text-secondary me-xl-4 me-4">
+      <div class="container">
+          <div class="row">
+              @if (!auth()->user() || \Request::is('static-sign-up'))
+                  <div class="col-lg-8 mx-auto text-center mb-4 mt-2">
+                      {{-- <a href="https://dribbble.com/creativetim" target="_blank" class="text-secondary me-xl-4 me-4">
                   <span class="text-lg fab fa-dribbble" aria-hidden="true"></span>
               </a>
               <a href="https://twitter.com/CreativeTim" target="_blank" class="text-secondary me-xl-4 me-4">
@@ -19,23 +19,26 @@
               <a href="https://github.com/creativetimofficial" target="_blank" class="text-secondary me-xl-4 me-4">
                   <span class="text-lg fab fa-github" aria-hidden="true"></span>
               </a> --}}
+                  </div>
+              @endif
           </div>
-        @endif
+          @if (!auth()->user() || \Request::is('static-sign-up'))
+              <div class="row">
+                  <div class="col-8 mx-auto text-center mt-1">
+                      <p class="mb-0 text-secondary">
+                          Copyright ©
+                          <script>
+                              document.write(new Date().getFullYear())
+                          </script>
+                          <a style="color: #252f40;" href="#" class="font-weight-bold ml-1">Tideup
+                              Farm </a>
+                          X
+                          <a style="color: #252f40;" href="https://tideup.tech" class="font-weight-bold ml-1"
+                              target="_blank"> PT. Titik Dedikasi Indonesia</a>.
+                      </p>
+                  </div>
+              </div>
+          @endif
       </div>
-      @if (!auth()->user() || \Request::is('static-sign-up')) 
-        <div class="row">
-          <div class="col-8 mx-auto text-center mt-1">
-            <p class="mb-0 text-secondary">
-              Copyright © <script>
-                document.write(new Date().getFullYear())
-              </script> 
-              <a style="color: #252f40;" href="#" class="font-weight-bold ml-1" target="_blank">Track Examination Team</a>
-              &
-              <a style="color: #252f40;" href="#" class="font-weight-bold ml-1" target="_blank">TCSM Departement</a>.
-            </p>
-          </div>
-        </div>
-      @endif
-    </div>
   </footer>
   <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->

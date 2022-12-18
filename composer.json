@@ -12,7 +12,8 @@
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.6",
-        "realrashid/sweet-alert": "^5.1"
+        "realrashid/sweet-alert": "^5.1",
+        "simplesoftwareio/simple-qrcode": "~4"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",

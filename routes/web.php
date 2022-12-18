@@ -4,9 +4,12 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\KambingController;
 use App\Http\Controllers\LemburController;
 use App\Http\Controllers\ManagementUserController;
+use App\Http\Controllers\PencatatanController;
+use App\Http\Controllers\PengelolaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
@@ -34,17 +37,10 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('dashboard');
 	})->name('dashboard');
 
-	Route::get('billing', function () {
-		return view('billing');
-	})->name('billing');
-
 	Route::get('profile', function () {
 		return view('profile');
 	})->name('profile');
 
-	Route::get('rtl', function () {
-		return view('rtl');
-	})->name('rtl');
 
 	Route::get('user-management', [ManagementUserController::class, 'index'])->name('user-management');
 	Route::get('edit-jabatan-user-{id}', [ManagementUserController::class, 'edit_role'])->name('edit-jabatan-user');
@@ -54,9 +50,6 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('tables');
 	})->name('tables');
 
-	Route::get('virtual-reality', function () {
-		return view('virtual-reality');
-	})->name('virtual-reality');
 
 	Route::get('static-sign-in', function () {
 		return view('static-sign-in');
@@ -96,6 +89,33 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::controller(KambingController::class)->group(function () {
 		Route::get('/kambing', 'index')->name('kambing.index');
 		Route::post('/kambing', 'store')->name('kambing.store');
+		Route::get('/kambing/{id}/edit', 'edit')->name('kambing.edit');
+		Route::put('/kambing', 'update')->name('kambing.update');
+		Route::get('/kambing/{id}/delete', 'destroy')->name('kambing.destroy');
+		Route::get('/kambing-qrcode', 'qrcode')->name('kambing.qrcode');
+	});
+
+	// PENCATATAN
+	Route::controller(PencatatanController::class)->group(function () {
+		Route::get('/pencatatan', 'index')->name('pencatatan.index');
+		Route::post('/pencatatan', 'store')->name('pencatatan.store');
+	});
+
+	// ADMIN
+	Route::controller(AdminController::class)->group(function () {
+		Route::get('/admin', 'index')->name('admin.dashboard');
+		Route::get('/list-admin', 'list_admin')->name('admin.index');
+		Route::get('/pencatatan-admin', 'catat_admin')->name('admin.catat');
+	});
+
+	// PENGELOLA
+	Route::controller(PengelolaController::class)->group(function () {
+		Route::get('/pengelola', 'index')->name('pengelola.index');
+	});
+
+	// INVESTOR
+	Route::controller(InvestorController::class)->group(function () {
+		Route::get('/investor', 'index')->name('investor.index');
 	});
 
 	Route::get('/admin', [AdminController::class, 'index'])->name('admin');

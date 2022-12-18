@@ -27,8 +27,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="float-end">
-                                <a href="#" class="btn btn-lg btn-primary fa fa-plus-circle" type="button"
+                                <a href="#" class="btn btn-lg btn-primary fa fa-plus-circle me-2" type="button"
                                     data-bs-toggle="modal" data-bs-target="#addModal"></a>
+                                <a href="{{ route('kambing.qrcode') }}" class="btn btn-lg btn-success fas fa-qrcode"
+                                    title="Generate QR Code Kambing" type="button"></a>
                             </div>
                             <p class="card-title-desc">{{ $tittle }} Tide Up Farm
                             </p>
@@ -78,40 +80,37 @@
                                                     {{ $item->harga_beli }}
                                                 </p>
                                             </td>
-                                            <td class="text-center badge badge-warning">
-                                                <p class="text-xs font-weight-bold mb-0">
+                                            <td class="text-center">
+                                                {{-- <p class="text-xs font-weight-bold mb-0">
                                                     {{ $item->status }}
-                                                </p>
+                                                </p> --}}
+                                                <span class="badge badge-lg bg-success font-weight-bold">
+                                                    {{ $item->status }}
+                                                </span>
                                             </td>
                                             <td class="text-center">
                                                 <img class="img-thumbnail" src="{{ asset('storage/' . $item->foto_beli) }}"
-                                                    style="height:50px" alt="">
+                                                    style="height:50px">
                                             </td>
                                             <td class="text-center">
-                                                {{-- <div class="btn-group">
-                                                    <span @if ($item->approval != 'DRAFT') hidden @else @endif>
-                                                        <a href="/lembur/submit/{{ $item->id }}" class="mx-0"
-                                                            data-bs-toggle="tooltip" data-bs-original-title="Submit">
-                                                            <button class="fas fa-paper-plane btn-success btn-sm"></button>
+                                                <div class="dropdown card-header-dropdown">
+                                                    <a class="text-reset dropdown-btn" href="#"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <span>
+                                                            <i class="fas fa-edit"></i>
+                                                        </span>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('kambing.edit', $item->qr_code) }}">
+                                                            Ubah
                                                         </a>
-                                                    </span>
-                                                    <span @if ($item->approval != 'DRAFT') hidden @else @endif>
-                                                        <a href="/edit/{{ $item->id }}/lembur" class="mx-1"
-                                                            data-bs-toggle="tooltip" data-bs-original-title="Edit data">
-                                                            <button class="fas fa-pen btn-warning btn-sm"></button>
-                                                        </a>
-                                                    </span>
-                                                    <span @if ($item->approval == 'APPROVED') hidden @else @endif>
-                                                        <form action="{{ route('lembur.destroy', $item->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button
-                                                                class="fas fa-trash btn-danger btn-sm btndelete waves-effect waves-light"data-bs-toggle="tooltip"
-                                                                data-bs-original-title="Delete data"></button>
-                                                        </form>
-                                                    </span>
-                                                </div> --}}
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('kambing.destroy', $item->id) }}"
+                                                            id="delete">Hapus</a>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
