@@ -34,7 +34,7 @@ class KambingController extends Controller
         $qr_code = Str::random(20);
         $tgl_beli = Carbon::parse($request->tgl_beli)->format('Y-m-d');
         $this->validate($request, [
-            'name' => ['required'],
+            'name' => ['required', 'unique:kambing,name,except,id'],
             'tgl_beli' => ['required'],
             'bobot_beli' => ['required', 'numeric'],
             'harga_beli' => ['required', 'numeric'],
@@ -88,8 +88,6 @@ class KambingController extends Controller
 
     public function update(Request $request)
     {
-        // dd($request);
-        $kambing = Kambing::find($request->id);
         $tgl_beli = Carbon::parse($request->tgl_beli)->format('Y-m-d');
         $this->validate($request, [
             'name' => ['required'],
@@ -101,7 +99,7 @@ class KambingController extends Controller
 
         if ($request->hasFile('foto_beli') && $request->foto_beli != '') {
             $foto_beli = $request->file('foto_beli')->store('photo-kambing-beli'); //new file path
-            $kambing->update([
+            Kambing::find($request->id)->update([
                 'name' => $request->name,
                 'tgl_beli' => $tgl_beli,
                 'bobot_beli' => $request->bobot_beli,
@@ -114,7 +112,7 @@ class KambingController extends Controller
             );
             return redirect('/kambing')->with($notification);
         } else {
-            $kambing->update([
+            Kambing::find($request->id)->update([
                 'name' => $request->name,
                 'tgl_beli' => $tgl_beli,
                 'bobot_beli' => $request->bobot_beli,

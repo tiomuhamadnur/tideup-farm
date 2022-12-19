@@ -33,10 +33,10 @@
                                 <div class="text-center pt-1 pb-1">
                                     <div class="row">
                                         <img class="me-3" src="data:image/png;base64, {!! base64_encode(
-                                            QrCode::format('png')->size(100)->generate($item->qr_code),
+                                            QrCode::format('png')->size(200)->generate($item->qr_code),
                                         ) !!} ">
                                         <br>
-                                        <h5 class="mt-1">{{ $item->name }}</h5>
+                                        <h5 class="mt-1 text-uppercase">{{ $item->name }}</h5>
                                     </div>
                                 </div>
                             </div>

@@ -42,34 +42,65 @@
 
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Tanggal beli</label>
-                                    <div class="col-sm-10">
-                                        <input name="tgl_beli" class="form-control" type="date"
-                                            value="{{ $kambing->tgl_beli }}">
+                                    <div class="col-sm-10" id="datepicker2">
+                                        {{-- <input name="tgl_beli" class="form-control" type="date"
+                                            value="{{ $kambing->tgl_beli }}"> --}}
+                                        <input type="text"
+                                            class="form-control @error('tgl_beli')
+                                        is-invalid
+                                        @enderror"
+                                            placeholder="dd MM, yyyy" data-date-format="dd MM, yyyy"
+                                            data-date-container='#datepicker2' data-provide="datepicker"
+                                            data-date-autoclose="true" name="tgl_beli"
+                                            value="{{ date('d F, Y', strtotime($kambing->tgl_beli)) }}">
+                                        @error('tgl_beli')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Bobot beli (kg)</label>
                                     <div class="col-sm-10">
-                                        <input name="bobot_beli" class="form-control" type="text"
-                                            value="{{ $kambing->bobot_beli }}">
+                                        <input name="bobot_beli"
+                                            class="form-control @error('bobot_beli')
+                                        is-invalid
+                                        @enderror"
+                                            type="text" value="{{ $kambing->bobot_beli }}">
+                                        @error('bobot_beli')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Harga beli (Rp)</label>
                                     <div class="col-sm-10">
-                                        <input name="harga_beli" class="form-control" type="text"
-                                            value="{{ $kambing->harga_beli }}">
+                                        <input name="harga_beli"
+                                            class="form-control @error('harga_beli')
+                                        is-invalid
+                                        @enderror"
+                                            type="text" value="{{ $kambing->harga_beli }}">
+                                        @error('harga_beli')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Foto beli</label>
                                     <div class="col-sm-10">
-                                        <input name="harga_beli" class="form-control" type="file">
-                                        <img style="height: 100px" src="{{ asset('storage/' . $kambing->foto_beli) }}"
+                                        <input name="foto_beli"
+                                            class="form-control @error('foto_beli')
+                                        is-invalid
+                                        @enderror"
+                                            type="file">
+                                        <img style="height: 100px"
+                                            @if ($kambing->foto_beli != null) src="{{ asset('storage/' . $kambing->foto_beli) }}" @else src="{{ asset('storage/photo-kambing-beli/default/default.png') }}" @endif
                                             class="img-thumbnail mt-2">
+                                        @error('foto_beli')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -89,7 +120,8 @@
         <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <form role="form" action="{{ route('kambing.store') }}" method="POST" enctype="multipart/form-data">
+                    <form role="form" action="{{ route('kambing.store') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="modal-header">
                             <h4 class="text-uppercase" id="exampleModalLabel">

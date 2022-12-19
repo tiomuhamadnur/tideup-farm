@@ -81,16 +81,14 @@
                                                 </p>
                                             </td>
                                             <td class="text-center">
-                                                {{-- <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $item->status }}
-                                                </p> --}}
                                                 <span class="badge badge-lg bg-success font-weight-bold">
                                                     {{ $item->status }}
                                                 </span>
                                             </td>
                                             <td class="text-center">
-                                                <img class="img-thumbnail" src="{{ asset('storage/' . $item->foto_beli) }}"
-                                                    style="height:50px">
+                                                <img class="img-thumbnail"
+                                                    @if ($item->foto_beli != null) src="{{ asset('storage/' . $item->foto_beli) }}" @else src="{{ asset('storage/photo-kambing-beli/default/default.png') }}" @endif
+                                                    style="height:70px">
                                             </td>
                                             <td class="text-center">
                                                 <div class="dropdown card-header-dropdown">
@@ -140,36 +138,68 @@
                             {{-- ISI --}}
                             <div class="mb-3">
                                 <label class="col-form-label">Nama :</label>
-                                <input type="text" name="name" class="form-control" value="{{ old('name') }}"
-                                    placeholder="Nama Kambing">
+                                <input type="text" name="name"
+                                    class="form-control @error('name')
+                                is-invalid
+                                @enderror"
+                                    value="{{ old('name') }}" placeholder="Nama Kambing">
+                                @error('name')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Tanggal beli :</label>
+                                <label class="form-label">Tanggal
+                                    beli :</label>
                                 <div class="input-group" id="datepicker2">
                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                    <input type="text" class="form-control" placeholder="dd MM, yyyy"
-                                        data-date-format="dd MM, yyyy" data-date-container='#datepicker2'
-                                        data-provide="datepicker" data-date-autoclose="true" name="tgl_beli"
-                                        value="{{ old('tgl_beli') }}">
+                                    <input type="text"
+                                        class="form-control @error('tgl_beli')
+                                    is-invalid
+                                    @enderror"
+                                        placeholder="dd MM, yyyy" data-date-format="dd MM, yyyy"
+                                        data-date-container='#datepicker2' data-provide="datepicker"
+                                        data-date-autoclose="true" name="tgl_beli" value="{{ old('tgl_beli') }}">
+                                    @error('tgl_beli')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label class="col-form-label">Harga beli (Rp.) :</label>
-                                <input type="text" name="harga_beli" class="form-control"
+                                <input type="text" name="harga_beli"
+                                    class="form-control @error('harga_beli')
+                                is-invalid
+                                @enderror"
                                     value="{{ old('harga_beli') }}" placeholder="Harga beli">
+                                @error('harga_beli')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label class="col-form-label">Bobot beli (kg) :</label>
-                                <input type="text" name="bobot_beli" class="form-control"
+                                <input type="text" name="bobot_beli"
+                                    class="form-control @error('harga_beli')
+                                is-invalid
+                                @enderror"
                                     value="{{ old('bobot_beli') }}" placeholder="Bobot beli">
+                                @error('bobot_beli')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label class="col-form-label">Foto beli :</label>
-                                <input class="form-control" type="file" name="foto_beli">
+                                <input
+                                    class="form-control @error('foto_beli')
+                                is-invalid
+                                @enderror"
+                                    type="file" name="foto_beli">
+                                @error('foto_beli')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="modal-footer mt-3">
