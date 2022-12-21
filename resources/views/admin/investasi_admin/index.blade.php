@@ -27,7 +27,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="float-end">
-                                <a href="#" class="btn btn-lg btn-primary fa fa-plus-circle" type="button"
+                                <a href="#" class="btn btn-lg btn-primary fa fa-plus-circle me-2" type="button"
                                     data-bs-toggle="modal" data-bs-target="#addModal"></a>
                             </div>
                             <p class="card-title-desc">{{ $tittle }} Tide Up Farm
@@ -38,20 +38,18 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Submitter</th>
-                                        <th>Kambing</th>
-                                        <th>Tgl. Catat</th>
-                                        <th>Bobot (kg)</th>
-                                        <th>Foto</th>
+                                        <th>Nama</th>
+                                        <th>Investasi (Rp)</th>
+                                        <th>Tgl. Investasi</th>
+                                        <th>Kwitansi Investasi</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
 
 
                                 <tbody>
-                                    @foreach ($pencatatan as $item)
+                                    @foreach ($investasi as $item)
                                         <tr>
-                                            <input type="hidden" class="delete_id" value="{{ $item->id }}">
                                             <td class="ps-4">
                                                 <p class="text-xs font-weight-bold mb-0">
                                                     {{ $loop->iteration }}
@@ -64,48 +62,38 @@
                                             </td>
                                             <td class="text-left">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    <b>{{ $item->kambing->name }}</b>
+                                                    {{ $item->modal }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    {{ date('d F Y', strtotime($item->tgl_catat)) }}
+                                                    {{ date('d F Y', strtotime($item->tgl_investasi)) }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $item->bobot }}
-                                                </p>
+                                                <img class="img-thumbnail"
+                                                    @if ($item->kwitansi_investasi != null) src="{{ asset('storage/' . $item->kwitansi_investasi) }}" @else src="{{ asset('storage/photo-kambing-beli/default/default.png') }}" @endif
+                                                    style="height:50px">
                                             </td>
                                             <td class="text-center">
-                                                <img class="img-thumbnail" src="{{ asset('storage/' . $item->foto) }}"
-                                                    style="height:50px" alt="">
-                                            </td>
-                                            <td class="text-center">
-                                                {{-- <div class="btn-group">
-                                                    <span @if ($item->approval != 'DRAFT') hidden @else @endif>
-                                                        <a href="/lembur/submit/{{ $item->id }}" class="mx-0"
-                                                            data-bs-toggle="tooltip" data-bs-original-title="Submit">
-                                                            <button class="fas fa-paper-plane btn-success btn-sm"></button>
+                                                <div class="dropdown card-header-dropdown">
+                                                    <a class="text-reset dropdown-btn" href="#"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <span>
+                                                            <i class="fas fa-edit"></i>
+                                                        </span>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('admin.investasi.edit', $item->id) }}">
+                                                            Ubah
                                                         </a>
-                                                    </span>
-                                                    <span @if ($item->approval != 'DRAFT') hidden @else @endif>
-                                                        <a href="/edit/{{ $item->id }}/lembur" class="mx-1"
-                                                            data-bs-toggle="tooltip" data-bs-original-title="Edit data">
-                                                            <button class="fas fa-pen btn-warning btn-sm"></button>
-                                                        </a>
-                                                    </span>
-                                                    <span @if ($item->approval == 'APPROVED') hidden @else @endif>
-                                                        <form action="{{ route('lembur.destroy', $item->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button
-                                                                class="fas fa-trash btn-danger btn-sm btndelete waves-effect waves-light"data-bs-toggle="tooltip"
-                                                                data-bs-original-title="Delete data"></button>
-                                                        </form>
-                                                    </span>
-                                                </div> --}}
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('admin.investasi.delete', $item->id) }}"
+                                                            id="delete">Hapus</a>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -121,83 +109,72 @@
         <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <form role="form" action="{{ route('pencatatan.store') }}" method="POST"
+                    <form role="form" action="{{ route('admin.investasi.store') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="modal-header">
                             <h4 class="text-uppercase" id="exampleModalLabel">
-                                <i class="fas fa-pencil-alt"></i>
-                                {{ $tittle }}
+                                <i class="mdi mdi-currency-usd"></i>
+                                Buat {{ $tittle }} Baru
                             </h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="mb-3">
-                                <label class="col-form-label">Submitter :</label>
-                                <input type="text"
-                                    class="form-control @error('user_id')
+
+                            <div class="mb-2">
+                                <label class="col-form-label">Investor :</label>
+                                <select name="user_id"
+                                    class="form-select @error('user_id')
                                     is-invalid
-                                @enderror"
-                                    readonly value="{{ auth()->user()->name }}">
-                                <input type="text" name="user_id" class="form-control" value="{{ auth()->user()->id }}"
-                                    hidden>
+                                @enderror">
+                                    <option selected disabled>- Pilih Investor -</option>
+                                    @foreach ($investor as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
                                 @error('user_id')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
 
-                            <div class="mb-3">
-                                <label class="col-form-label">Kambing :</label>
-                                <select name="kambing_id"
-                                    class="form-control @error('kambing_id')
-                                    is-invalid
-                                @enderror">
-                                    <option selected disabled> - Pilih Kambing - </option>
-                                    @foreach ($kambing as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('kambing_id')
+                            <div class="mb-2">
+                                <label class="col-form-label">Modal Investasi (Rp) :</label>
+                                <input type="text" name="modal"
+                                    class="form-control @error('modal')
+                                is-invalid
+                                @enderror"
+                                    value="{{ old('modal') }}" autocomplete="off">
+                                @error('modal')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">Tanggal Penimbangan :</label>
+                            <div class="mb-2">
+                                <label class="form-label">Tanggal
+                                    investasi :</label>
                                 <div class="input-group" id="datepicker2">
                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                     <input type="text"
-                                        class="form-control @error('tgl_catat')
-                                        is-invalid
+                                        class="form-control @error('tgl_investasi')
+                                    is-invalid
                                     @enderror"
                                         placeholder="dd MM, yyyy" data-date-format="dd MM, yyyy"
                                         data-date-container='#datepicker2' data-provide="datepicker"
-                                        data-date-autoclose="true" name="tgl_catat">
-                                    @error('tgl_catat')
+                                        data-date-autoclose="true" name="tgl_investasi" value="{{ old('tgl_investasi') }}">
+                                    @error('tgl_investasi')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="mb-3">
-                                <label class="col-form-label">Bobot (kg) :</label>
-                                <input type="text" name="bobot"
-                                    class="form-control @error('bobot')
-                                    is-invalid
-                                @enderror">
-                                @error('bobot')
-                                    <span class="invalid-feedback">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="col-form-label">Foto Penimbangan :</label>
+                            <div class="mb-2">
+                                <label class="col-form-label">Kwitansi beli :</label>
                                 <input
-                                    class="form-control @error('foto')
-                                    is-invalid
+                                    class="form-control @error('kwitansi_investasi')
+                                is-invalid
                                 @enderror"
-                                    type="file" name="foto">
-                                @error('foto')
+                                    type="file" name="kwitansi_investasi">
+                                @error('kwitansi_investasi')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -211,6 +188,7 @@
                 </div>
             </div>
         </div>
+        {{-- END MODALS --}}
     </div>
 
 @section('javascript')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kambing;
 use App\Models\Pencatatan;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -14,7 +15,8 @@ class KambingController extends Controller
     {
         $tittle = 'Data Kambing';
         $kambing = Kambing::all();
-        return view('admin.kambing.index', compact(['tittle', 'kambing']));
+        $investor = User::where('role', 'investor')->get();
+        return view('admin.kambing.index', compact(['tittle', 'kambing', 'investor']));
     }
 
     public function qrcode()
@@ -35,22 +37,27 @@ class KambingController extends Controller
         $tgl_beli = Carbon::parse($request->tgl_beli)->format('Y-m-d');
         $this->validate($request, [
             'name' => ['required', 'unique:kambing,name,except,id'],
+            'user_id' => ['required'],
             'tgl_beli' => ['required'],
             'bobot_beli' => ['required', 'numeric'],
             'harga_beli' => ['required', 'numeric'],
             'foto_beli' => ['image', 'nullable'],
+            'kwitansi_beli' => ['image', 'nullable'],
         ]);
 
-        if ($request->hasFile('foto_beli') && $request->foto_beli != '') {
-            $foto_beli = $request->file('foto_beli')->store('photo-kambing-beli'); //new file path
+        if (($request->hasFile('foto_beli') && $request->hasFile('kwitansi_beli')) && ($request->foto_beli != '' && $request->kwitansi_beli != '')) {
+            $foto_beli = $request->file('foto_beli')->store('photo-kambing-beli');
+            $kwitansi_beli = $request->file('kwitansi_beli')->store('photo-kwitansi-beli');
             Kambing::create([
                 'name' => $request->name,
+                'user_id' => $request->user_id,
                 'qr_code' => $qr_code,
                 'tgl_beli' => $tgl_beli,
                 'bobot_beli' => $request->bobot_beli,
                 'harga_beli' => $request->harga_beli,
                 'status' => 'ongoing',
                 'foto_beli' => $foto_beli,
+                'kwitansi_beli' => $kwitansi_beli,
             ]);
             $notification = array(
                 'message' => 'Data kambing berhasil dibuat',
@@ -60,6 +67,7 @@ class KambingController extends Controller
         } else {
             Kambing::create([
                 'name' => $request->name,
+                'user_id' => $request->user_id,
                 'qr_code' => $qr_code,
                 'tgl_beli' => $tgl_beli,
                 'bobot_beli' => $request->bobot_beli,
@@ -97,8 +105,25 @@ class KambingController extends Controller
             'foto_beli' => ['image', 'nullable'],
         ]);
 
-        if ($request->hasFile('foto_beli') && $request->foto_beli != '') {
-            $foto_beli = $request->file('foto_beli')->store('photo-kambing-beli'); //new file path
+        if ($request->hasFile('foto_beli') && $request->hasFile('kwitansi_beli')) {
+            $foto_beli = $request->file('foto_beli')->store('photo-kambing-beli');
+            $kwitansi_beli = $request->file('kwitansi_beli')->store('photo-kwitansi-beli');
+            Kambing::find($request->id)->update([
+                'name' => $request->name,
+                'tgl_beli' => $tgl_beli,
+                'bobot_beli' => $request->bobot_beli,
+                'harga_beli' => $request->harga_beli,
+                'foto_beli' => $foto_beli,
+                'kwitansi_beli' => $kwitansi_beli,
+            ]);
+            $notification = array(
+                'message' => 'Data kambing berhasil diperbaharui',
+                'alert-type' => 'success'
+            );
+            return redirect('/kambing')->with($notification);
+        }
+        elseif($request->hasFile('foto_beli') && $request->kwitansi_beli != ''){
+            $foto_beli = $request->file('foto_beli')->store('photo-kambing-beli');
             Kambing::find($request->id)->update([
                 'name' => $request->name,
                 'tgl_beli' => $tgl_beli,
@@ -111,7 +136,23 @@ class KambingController extends Controller
                 'alert-type' => 'success'
             );
             return redirect('/kambing')->with($notification);
-        } else {
+        }
+        elseif($request->hasFile('kwitansi_beli') && $request->foto_beli != ''){
+            $kwitansi_beli = $request->file('kwitansi_beli')->store('photo-kwitansi-beli');
+            Kambing::find($request->id)->update([
+                'name' => $request->name,
+                'tgl_beli' => $tgl_beli,
+                'bobot_beli' => $request->bobot_beli,
+                'harga_beli' => $request->harga_beli,
+                'kwitansi_beli' => $kwitansi_beli,
+            ]);
+            $notification = array(
+                'message' => 'Data kambing berhasil diperbaharui',
+                'alert-type' => 'success'
+            );
+            return redirect('/kambing')->with($notification);
+        }
+        else {
             Kambing::find($request->id)->update([
                 'name' => $request->name,
                 'tgl_beli' => $tgl_beli,
@@ -139,7 +180,7 @@ class KambingController extends Controller
         } else {
             Kambing::find($id)->delete();
             $notification = array(
-                'message' => 'Data kambing berhasil diperbaharui',
+                'message' => 'Data kambing berhasil dihapus',
                 'alert-type' => 'success'
             );
             return back()->with($notification);

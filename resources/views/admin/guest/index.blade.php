@@ -45,7 +45,7 @@
 
 
                                 <tbody>
-                                    @foreach ($pengelola as $item)
+                                    @foreach ($guest as $item)
                                         <tr>
                                             <input type="hidden" class="delete_id" value="{{ $item->id }}">
                                             <td class="ps-4">
@@ -96,7 +96,7 @@
                                                             Ubah Role
                                                         </a>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('pengelola.delete', $item->id) }}"
+                                                            href="{{ route('guest.delete', $item->id) }}"
                                                             id="delete">Hapus</a>
                                                     </div>
                                                 </div>
@@ -115,8 +115,7 @@
         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <form role="form" action="{{ route('pengelola.update') }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form role="form" action="{{ route('guest.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="modal-header">

@@ -23,10 +23,12 @@ return new class extends Migration
             $table->string('bobot_beli')->nullable();
             $table->string('harga_beli')->nullable();
             $table->string('foto_beli')->nullable();
+            $table->string('kwitansi_beli')->nullable();
             $table->date('tgl_jual')->nullable();
             $table->string('bobot_jual')->nullable();
             $table->string('harga_jual')->nullable();
             $table->string('foto_jual')->nullable();
+            $table->string('kwitansi_jual')->nullable();
             $table->enum('status', ['ongoing', 'sold'])->nullable();
             $table->timestamps();
 

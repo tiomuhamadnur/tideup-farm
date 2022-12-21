@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pencatatan;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class InvestorController extends Controller
+class GuestController extends Controller
 {
     public function index()
     {
-        $tittle = 'Data Investor';
-        $investor = User::where('role', 'investor')->get();
-        return view('admin.investor.index', compact(['tittle', 'investor']));
+        $tittle = "Data Guest";
+        $guest = User::where('role', 'guest')->get();
+        return view('admin.guest.index', compact(['tittle', 'guest']));
     }
 
     public function create()
@@ -53,20 +52,11 @@ class InvestorController extends Controller
 
     public function destroy($id)
     {
-        $validasi = Pencatatan::where('id', $id)->count();
-        if($validasi > 0){
-            $notification = array(
-                'message' => 'Data tidak bisa dihapus, sudah masuk dalam transaksi pencatatan.',
-                'alert-type' => 'error'
-            );
-            return back()->with($notification);
-        } else {
-            User::findOrFail($id)->delete();
-            $notification = array(
-                'message' => 'Data investor berhasil dihapus',
-                'alert-type' => 'success'
-            );
-            return back()->with($notification);
-        }
+        User::findOrFail($id)->delete();
+        $notification = array(
+            'message' => 'Data guest berhasil dihapus',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
     }
 }

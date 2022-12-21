@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\InvestasiAdminController;
+use App\Http\Controllers\InvestasiController;
 use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\KambingController;
 use App\Http\Controllers\LemburController;
@@ -33,9 +36,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/', [HomeController::class, 'home']);
-	Route::get('dashboard', function () {
-		return view('dashboard');
-	})->name('dashboard');
+	// Route::get('dashboard', function () {
+	// 	return view('dashboard');
+	// })->name('dashboard');
 
 	Route::get('profile', function () {
 		return view('profile');
@@ -85,40 +88,74 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::delete('/lembur/delete/{id}', 'destroy')->name('lembur.destroy');
 	});
 
-	// KAMBING
-	Route::controller(KambingController::class)->group(function () {
-		Route::get('/kambing', 'index')->name('kambing.index');
-		Route::post('/kambing', 'store')->name('kambing.store');
-		Route::get('/kambing/{id}/edit', 'edit')->name('kambing.edit');
-		Route::put('/kambing', 'update')->name('kambing.update');
-		Route::get('/kambing/{id}/delete', 'destroy')->name('kambing.destroy');
-		Route::get('/kambing-qrcode', 'qrcode')->name('kambing.qrcode');
+	
+	Route::middleware('isPengelola')->group(function () {
+		// PENCATATAN
+		Route::controller(PencatatanController::class)->group(function () {
+			Route::get('/pencatatan', 'index')->name('pencatatan.index');
+			Route::post('/pencatatan', 'store')->name('pencatatan.store');
+		});
+
+		// KAMBING
+		Route::controller(KambingController::class)->group(function () {
+			Route::get('/kambing', 'index')->name('kambing.index');
+			Route::post('/kambing', 'store')->name('kambing.store');
+			Route::get('/kambing/{id}/edit', 'edit')->name('kambing.edit');
+			Route::put('/kambing', 'update')->name('kambing.update');
+			Route::get('/kambing/{id}/delete', 'destroy')->name('kambing.destroy')->middleware('isAdmin');
+			Route::get('/kambing-qrcode', 'qrcode')->name('kambing.qrcode');
+		});
 	});
 
-	// PENCATATAN
-	Route::controller(PencatatanController::class)->group(function () {
-		Route::get('/pencatatan', 'index')->name('pencatatan.index');
-		Route::post('/pencatatan', 'store')->name('pencatatan.store');
+	// INVESTASI
+	Route::middleware('isInvestor')->group(function () {
+		Route::controller(InvestasiController::class)->group(function () {
+			Route::get('/investasi', 'index')->name('investasi.index');
+		});
 	});
 
-	// ADMIN
-	Route::controller(AdminController::class)->group(function () {
-		Route::get('/admin', 'index')->name('admin.dashboard');
-		Route::get('/list-admin', 'list_admin')->name('admin.index');
-		Route::get('/pencatatan-admin', 'catat_admin')->name('admin.catat');
+	// MASTER DATA
+	Route::middleware('isAdmin')->group(function () {
+		// INVESTASI
+		Route::controller(InvestasiAdminController::class)->group(function () {
+			Route::get('/admin-investasi', 'index')->name('admin.investasi.index');
+			Route::post('/admin-investasi', 'store')->name('admin.investasi.store');
+			Route::put('/admin-investasi', 'update')->name('admin.investasi.update');
+			Route::get('/admin-investasi/{id}/edit', 'edit')->name('admin.investasi.edit');
+			Route::get('/admin-investasi/{id}/delete', 'destroy')->name('admin.investasi.delete');
+		});
+
+		// ADMIN
+		Route::controller(AdminController::class)->group(function () {
+			Route::get('/admin', 'list_admin')->name('admin.index');
+			Route::put('/admin', 'update')->name('admin.update');
+			Route::get('/admin/{id}/delete', 'destroy')->name('admin.delete');
+			Route::get('/pencatatan-admin', 'catat_admin')->name('admin.catat');
+		});
+
+		// PENGELOLA
+		Route::controller(PengelolaController::class)->group(function () {
+			Route::get('/pengelola', 'index')->name('pengelola.index');
+			Route::put('/pengelola', 'update')->name('pengelola.update');
+			Route::get('/pengelola/{id}/delete', 'destroy')->name('pengelola.delete');
+		});
+
+		// INVESTOR
+		Route::controller(InvestorController::class)->group(function () {
+			Route::get('/investor', 'index')->name('investor.index');
+			Route::put('/investor', 'update')->name('investor.update');
+			Route::get('/investor/{id}/delete', 'destroy')->name('investor.delete');
+		});
+
+		// GUEST
+		Route::controller(GuestController::class)->group(function () {
+			Route::get('/guest', 'index')->name('guest.index');
+			Route::put('/guest', 'update')->name('guest.update');
+			Route::get('/guest/{id}/delete', 'destroy')->name('guest.delete');
+		});
 	});
 
-	// PENGELOLA
-	Route::controller(PengelolaController::class)->group(function () {
-		Route::get('/pengelola', 'index')->name('pengelola.index');
-	});
-
-	// INVESTOR
-	Route::controller(InvestorController::class)->group(function () {
-		Route::get('/investor', 'index')->name('investor.index');
-	});
-
-	Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+	Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 });
 
 

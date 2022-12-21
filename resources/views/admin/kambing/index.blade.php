@@ -41,11 +41,13 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
+                                        <th>Investor</th>
                                         <th>Tgl. Beli</th>
                                         <th>Bobot Beli (kg)</th>
                                         <th>Harga Beli (Rp)</th>
                                         <th>Status</th>
                                         <th>Foto Beli</th>
+                                        {{-- <th>Kwitansi Beli</th> --}}
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -63,6 +65,11 @@
                                             <td class="text-left">
                                                 <p class="text-xs font-weight-bold mb-0">
                                                     <b>{{ $item->name }}</b>
+                                                </p>
+                                            </td>
+                                            <td class="text-left">
+                                                <p class="text-xs font-weight-bold mb-0">
+                                                    <b>{{ $item->user->name }}</b>
                                                 </p>
                                             </td>
                                             <td class="text-left">
@@ -88,8 +95,13 @@
                                             <td class="text-center">
                                                 <img class="img-thumbnail"
                                                     @if ($item->foto_beli != null) src="{{ asset('storage/' . $item->foto_beli) }}" @else src="{{ asset('storage/photo-kambing-beli/default/default.png') }}" @endif
-                                                    style="height:70px">
+                                                    style="height:50px">
                                             </td>
+                                            {{-- <td class="text-center">
+                                                <img class="img-thumbnail"
+                                                    @if ($item->kwitansi_beli != null) src="{{ asset('storage/' . $item->kwitansi_beli) }}" @else src="{{ asset('storage/photo-kambing-beli/default/default.png') }}" @endif
+                                                    style="height:50px">
+                                            </td> --}}
                                             <td class="text-center">
                                                 <div class="dropdown card-header-dropdown">
                                                     <a class="text-reset dropdown-btn" href="#"
@@ -135,20 +147,36 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            {{-- ISI --}}
-                            <div class="mb-3">
+
+                            <div class="mb-2">
+                                <label class="col-form-label">Investor :</label>
+                                <select name="user_id"
+                                    class="form-select @error('user_id')
+                                    is-invalid
+                                @enderror">
+                                    <option selected disabled>- Pilih Investor -</option>
+                                    @foreach ($investor as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('user_id')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-2">
                                 <label class="col-form-label">Nama :</label>
                                 <input type="text" name="name"
                                     class="form-control @error('name')
                                 is-invalid
                                 @enderror"
-                                    value="{{ old('name') }}" placeholder="Nama Kambing">
+                                    value="{{ old('name') }}" autocomplete="off">
                                 @error('name')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
 
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <label class="form-label">Tanggal
                                     beli :</label>
                                 <div class="input-group" id="datepicker2">
@@ -166,31 +194,31 @@
                                 </div>
                             </div>
 
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <label class="col-form-label">Harga beli (Rp.) :</label>
                                 <input type="text" name="harga_beli"
                                     class="form-control @error('harga_beli')
                                 is-invalid
                                 @enderror"
-                                    value="{{ old('harga_beli') }}" placeholder="Harga beli">
+                                    value="{{ old('harga_beli') }}">
                                 @error('harga_beli')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
 
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <label class="col-form-label">Bobot beli (kg) :</label>
                                 <input type="text" name="bobot_beli"
                                     class="form-control @error('harga_beli')
                                 is-invalid
                                 @enderror"
-                                    value="{{ old('bobot_beli') }}" placeholder="Bobot beli">
+                                    value="{{ old('bobot_beli') }}">
                                 @error('bobot_beli')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
 
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <label class="col-form-label">Foto beli :</label>
                                 <input
                                     class="form-control @error('foto_beli')
@@ -198,6 +226,18 @@
                                 @enderror"
                                     type="file" name="foto_beli">
                                 @error('foto_beli')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="col-form-label">Kwitansi beli :</label>
+                                <input
+                                    class="form-control @error('kwitansi_beli')
+                                is-invalid
+                                @enderror"
+                                    type="file" name="kwitansi_beli">
+                                @error('kwitansi_beli')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -213,4 +253,14 @@
         </div>
         {{-- END MODALS --}}
     </div>
+
+@section('javascript')
+    @if (count($errors) > 0)
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#addModal').modal('show');
+            });
+        </script>
+    @endif
+@endsection
 @endsection

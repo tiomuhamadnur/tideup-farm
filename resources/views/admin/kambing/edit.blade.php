@@ -104,8 +104,26 @@
                                     </div>
                                 </div>
 
+                                <div class="row mb-3">
+                                    <label for="example-text-input" class="col-sm-2 col-form-label">Kwitansi beli</label>
+                                    <div class="col-sm-10">
+                                        <input name="kwitansi_beli"
+                                            class="form-control @error('kwitansi_beli')
+                                        is-invalid
+                                        @enderror"
+                                            type="file">
+                                        <img style="height: 100px"
+                                            @if ($kambing->kwitansi_beli != null) src="{{ asset('storage/' . $kambing->kwitansi_beli) }}" @else src="{{ asset('storage/photo-kambing-beli/default/default.png') }}" @endif
+                                            class="img-thumbnail mt-2">
+                                        @error('kwitansi_beli')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="submit" class="btn btn-primary me-1">Simpan</button>
+                                    <a href="{{ route('kambing.index') }}" class="btn btn-danger">Batal</a>
                                 </div>
                             </form>
 
@@ -128,7 +146,8 @@
                                 <i class="mdi mdi-cow"></i>
                                 Buat {{ $tittle }} Baru
                             </h4>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             {{-- ISI --}}

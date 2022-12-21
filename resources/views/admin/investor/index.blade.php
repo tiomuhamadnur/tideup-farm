@@ -26,10 +26,6 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="float-end">
-                                <a href="#" class="btn btn-lg btn-primary fa fa-plus-circle" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#addModal"></a>
-                            </div>
                             <p class="card-title-desc">{{ $tittle }} Tide Up Farm
                             </p>
 
@@ -83,30 +79,27 @@
                                                 </span>
                                             </td>
                                             <td class="text-center">
-                                                {{-- <div class="btn-group">
-                                                    <span @if ($item->approval != 'DRAFT') hidden @else @endif>
-                                                        <a href="/lembur/submit/{{ $item->id }}" class="mx-0"
-                                                            data-bs-toggle="tooltip" data-bs-original-title="Submit">
-                                                            <button class="fas fa-paper-plane btn-success btn-sm"></button>
+                                                <div class="dropdown card-header-dropdown">
+                                                    <a class="text-reset dropdown-btn" href="#"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <span>
+                                                            <i class="fas fa-edit"></i>
+                                                        </span>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a href="#" class="dropdown-item" type="button"
+                                                            data-bs-toggle="modal" data-bs-target="#editModal"
+                                                            data-id-user="{{ $item->id }}"
+                                                            data-name-user="{{ $item->name }}"
+                                                            data-email-user="{{ $item->email }}">
+                                                            Ubah Role
                                                         </a>
-                                                    </span>
-                                                    <span @if ($item->approval != 'DRAFT') hidden @else @endif>
-                                                        <a href="/edit/{{ $item->id }}/lembur" class="mx-1"
-                                                            data-bs-toggle="tooltip" data-bs-original-title="Edit data">
-                                                            <button class="fas fa-pen btn-warning btn-sm"></button>
-                                                        </a>
-                                                    </span>
-                                                    <span @if ($item->approval == 'APPROVED') hidden @else @endif>
-                                                        <form action="{{ route('lembur.destroy', $item->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button
-                                                                class="fas fa-trash btn-danger btn-sm btndelete waves-effect waves-light"data-bs-toggle="tooltip"
-                                                                data-bs-original-title="Delete data"></button>
-                                                        </form>
-                                                    </span>
-                                                </div> --}}
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('investor.delete', $item->id) }}"
+                                                            id="delete">Hapus</a>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -119,53 +112,47 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <form role="form" action="{{ route('kambing.store') }}" method="POST"
+                    <form role="form" action="{{ route('investor.update') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
+                        @method('put')
                         <div class="modal-header">
                             <h4 class="text-uppercase" id="exampleModalLabel">
-                                <i class="mdi mdi-cow"></i>
-                                Buat {{ $tittle }} Baru
+                                <i class="fas fa-users"></i>
+                                Ubah Role {{ $tittle }}
                             </h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            {{-- ISI --}}
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <label class="col-form-label">Nama :</label>
-                                <input type="text" name="name" class="form-control" value="{{ old('name') }}"
-                                    placeholder="Nama Kambing">
+                                <input type="text" class="form-control" id="name_update" readonly>
+                                <input type="text" class="form-control" name="id" id="id_update" hidden>
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">Tanggal beli :</label>
-                                <div class="input-group" id="datepicker2">
-                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                    <input type="text" class="form-control" placeholder="dd MM, yyyy"
-                                        data-date-format="dd MM, yyyy" data-date-container='#datepicker2'
-                                        data-provide="datepicker" data-date-autoclose="true" name="tgl_beli"
-                                        value="{{ old('tgl_beli') }}">
-                                </div>
+                            <div class="mb-2">
+                                <label class="col-form-label">Email :</label>
+                                <input type="text" class="form-control" id="email_update" readonly>
                             </div>
 
-                            <div class="mb-3">
-                                <label class="col-form-label">Harga beli (Rp.) :</label>
-                                <input type="text" name="harga_beli" class="form-control"
-                                    value="{{ old('harga_beli') }}" placeholder="Harga beli">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="col-form-label">Bobot beli (kg) :</label>
-                                <input type="text" name="bobot_beli" class="form-control"
-                                    value="{{ old('bobot_beli') }}" placeholder="Bobot beli">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="col-form-label">Foto beli :</label>
-                                <input class="form-control" type="file" name="foto_beli">
+                            <div class="mb-2">
+                                <label class="col-form-label">Role :</label>
+                                <select name="role"
+                                    class="form-control @error('role')
+                                    is-invalid
+                                @enderror">
+                                    <option selected disabled> - Pilih Role - </option>
+                                    <option value="guest">Guest</option>
+                                    <option value="investor">Investor</option>
+                                    <option value="pengelola">Pengelola</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                                @error('role')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="modal-footer mt-3">
@@ -177,6 +164,18 @@
                 </div>
             </div>
         </div>
-        {{-- END MODALS --}}
     </div>
+
+@section('javascript')
+    <script>
+        $('#editModal').on('show.bs.modal', function(e) {
+            let id_update = $(e.relatedTarget).data('id-user');
+            let name_update = $(e.relatedTarget).data('name-user');
+            let email_update = $(e.relatedTarget).data('email-user');
+            $('#id_update').val(id_update);
+            $('#name_update').val(name_update);
+            $('#email_update').val(email_update);
+        });
+    </script>
+@endsection
 @endsection
