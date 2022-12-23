@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
@@ -172,5 +173,12 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::get('/login', function () {
-	return view('session/login-session');
+	// return view('session/login-session');
+	return view('session.login');
 })->name('login');
+
+// Google URL
+Route::prefix('google')->name('google.')->group( function(){
+    Route::get('login', [GoogleController::class, 'loginWithGoogle'])->name('login');
+    Route::any('callback', [GoogleController::class, 'callbackFromGoogle'])->name('callback');
+});

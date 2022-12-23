@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('role')->default('guest')->nullable();
+            $table->string('google_id')->nullable();
             $table->string('nik')->nullable();
             $table->string('email')->unique();
             $table->string('password');

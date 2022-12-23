@@ -10,7 +10,8 @@ class SessionsController extends Controller
 {
     public function create()
     {
-        return view('session.login-session');
+        // return view('session.login-session');
+        return view('session.login');
     }
 
     public function store()
