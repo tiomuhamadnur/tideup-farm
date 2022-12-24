@@ -14,11 +14,19 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $listen = [
+    protected $listen_email = [
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
     ];
+
+    protected $listen = [
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            // ... other providers
+            \SocialiteProviders\Google\GoogleExtendSocialite::class.'@handle',
+        ],
+    ];
+    
 
     /**
      * Register any events for your application.
