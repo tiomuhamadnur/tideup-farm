@@ -70,7 +70,9 @@
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user"
-                        src="{{ asset('storage/photo-profile/default.png') }}" alt="Header Avatar">
+                        @if (auth()->user()->avatar != null) src="{{ auth()->user()->avatar }}" @else
+                        src="{{ asset('storage/photo-profile/default.png') }}" @endif
+                        alt="Header Avatar">
                     <span class="d-none d-xl-inline-block ms-1">{{ auth()->user()->name }}</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>

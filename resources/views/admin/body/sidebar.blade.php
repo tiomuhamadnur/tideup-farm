@@ -5,8 +5,9 @@
         <!-- User details -->
         <div class="user-profile text-center mt-3">
             <div class="">
-                <img src="{{ asset('storage/photo-profile/default.png') }}" alt=""
-                    class="avatar-md rounded-circle">
+                <img @if (auth()->user()->avatar != null) src="{{ auth()->user()->avatar }}" @else
+                src="{{ asset('storage/photo-profile/default.png') }}" @endif
+                    alt="" class="avatar-md rounded-circle">
             </div>
             <div class="mt-3">
                 <h4 class="font-size-16 mb-1">{{ auth()->user()->name }}</h4>

@@ -69,26 +69,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/login', function () {
 		return view('dashboard');
 	})->name('sign-up');
-
-	// WESEL
-	// Route::get('wesel', [WeselController::class, 'index'])->name('wesel');
-	// Route::get('/wesel/show-detail-wesel', [WeselController::class, 'show_detail_wesel'])->name('show-detail-wesel');
-	// Route::get('/wesel/show-detail-wesel/{id}', [WeselController::class, 'show_detail_wesel_edit'])->name('show-detail-wesel-edit');
-	// Route::get('create-job-wesel', [WeselController::class, 'create'])->name('create-job-wesel');
-	// Route::post('/wesel/store', [WeselController::class, 'store'])->name('wesel-store');
-	// Route::get('/edit-job-wesel/{id}', [WeselController::class, 'edit'])->name('edit-job-wesel');
-	// Route::put('/update-job-wesel/{id}', [WeselController::class, 'update'])->name('update-job-wesel');
-	// Route::get('/export-job-wesel/{id}', [WeselController::class, 'export'])->name('export-job-wesel');
-	// Route::get('/wesel/delete/{id}', [WeselController::class, 'destroy']);
-
-	// LEMBUR
-	Route::controller(LemburController::class)->group(function () {
-		Route::get('/lembur', 'index')->name('lembur');
-		Route::put('/lembur/new', 'store');
-		Route::get('/lembur/submit/{id}', 'submit');
-		Route::delete('/lembur/delete/{id}', 'destroy')->name('lembur.destroy');
-	});
-
 	
 	Route::middleware('isPengelola')->group(function () {
 		// PENCATATAN
@@ -156,7 +136,10 @@ Route::group(['middleware' => 'auth'], function () {
 		});
 	});
 
-	Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+	Route::middleware('isGuest')->group(function () {
+		Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+	});
+	Route::get('/dashboard-guest', [GuestController::class, 'dashboard'])->name('guest.dashboard');
 });
 
 

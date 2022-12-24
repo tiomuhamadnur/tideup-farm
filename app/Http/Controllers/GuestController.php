@@ -14,6 +14,12 @@ class GuestController extends Controller
         return view('admin.guest.index', compact(['tittle', 'guest']));
     }
 
+    public function dashboard()
+    {
+        $tittle = "Dashboard Guest";
+        return view('guest.dashboard', compact(['tittle']));
+    }
+
     public function create()
     {
         //
