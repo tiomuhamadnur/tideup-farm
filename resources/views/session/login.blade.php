@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('backend/login/style.css') }}" />
-    <title>Sign in & Sign up Form</title>
+    <title>Tide Up Farm</title>
 </head>
 
 <body>
@@ -34,18 +34,18 @@
                     <input type="submit" value="Login" class="btn solid" />
                     <p class="social-text">Or Sign in with social platforms</p>
                     <div class="social-media">
-                        <a href="#" class="social-icon">
+                        {{-- <a href="#" class="social-icon">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="#" class="social-icon">
                             <i class="fab fa-twitter"></i>
-                        </a>
+                        </a> --}}
                         <a href="{{ route('google.login') }}" class="social-icon">
                             <i class="fab fa-google"></i>
                         </a>
-                        <a href="#" class="social-icon">
+                        {{-- <a href="#" class="social-icon">
                             <i class="fab fa-linkedin-in"></i>
-                        </a>
+                        </a> --}}
                     </div>
                 </form>
                 <form class="sign-up-form" method="POST" action="/register">
@@ -82,18 +82,18 @@
                     <p class="social-text">Or Sign up with social platforms</p>
 
                     <div class="social-media">
-                        <a href="#" class="social-icon">
+                        {{-- <a href="#" class="social-icon">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="#" class="social-icon">
                             <i class="fab fa-twitter"></i>
-                        </a>
+                        </a> --}}
                         <a href="{{ route('google.login') }}" class="social-icon">
                             <i class="fab fa-google"></i>
                         </a>
-                        <a href="#" class="social-icon">
+                        {{-- <a href="#" class="social-icon">
                             <i class="fab fa-linkedin-in"></i>
-                        </a>
+                        </a> --}}
                     </div>
                 </form>
             </div>
@@ -107,7 +107,7 @@
                         Silahkan melakukan pendaftaran!
                     </p>
                     <button class="btn transparent" id="sign-up-btn">
-                        Daftar
+                        Sign Up
                     </button>
                 </div>
                 <img src="{{ asset('backend/login/img/log.svg') }}" class="image" alt="" />
