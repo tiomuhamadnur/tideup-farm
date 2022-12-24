@@ -34,7 +34,7 @@ return [
     'google' => [
         'client_id' => '62614591741-grl2kfl3ruh6t3ovi1v1i97hvbnl2fl0.apps.googleusercontent.com', //USE FROM Google DEVELOPER ACCOUNT
         'client_secret' => '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', //USE FROM Google DEVELOPER ACCOUNT
-        'redirect' => 'http://localhost:8000/auth/google/callback'
+        'redirect' => 'https://farm.tideup.tech/auth/google/callback'
     ],
 
 ];
