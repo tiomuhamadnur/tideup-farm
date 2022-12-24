@@ -178,7 +178,5 @@ Route::get('/login', function () {
 })->name('login');
 
 // Google URL
-Route::prefix('google')->name('google.')->group( function(){
-    Route::get('auth/login', [GoogleController::class, 'loginWithGoogle'])->name('login');
-    Route::any('auth/callback', [GoogleController::class, 'callbackFromGoogle'])->name('callback');
-});
+Route::get('auth/google/login', [GoogleController::class, 'loginWithGoogle'])->name('google.login');
+Route::any('auth/google/callback', [GoogleController::class, 'callbackFromGoogle'])->name('google.callback');
