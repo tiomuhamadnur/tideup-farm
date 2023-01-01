@@ -22,10 +22,17 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title">Menu</li>
 
-                <li>
+                <li @if (auth()->user()->role == 'guest') hidden @endif>
                     <a href="{{ route('dashboard') }}" class="waves-effect">
                         <i class="fas fa-home"></i>
                         <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li @if (auth()->user()->role != 'guest') hidden @endif>
+                    <a href="/dashboard-guest" class="waves-effect">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard Guest</span>
                     </a>
                 </li>
 
@@ -64,10 +71,24 @@
                         </li>
 
                         <li>
-                            <a href="/admin-investasi" class="waves-effect">
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="fas fa-money-check-alt"></i>
-                                <span>Investasi</span>
+                                <span>Data Investasi</span>
                             </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li>
+                                    <a href="/admin-investasi" class="waves-effect">
+                                        <i class="fas fa-money-check-alt"></i>
+                                        <span>Investasi</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin-kelompok" class="waves-effect">
+                                        <i class="far fa-object-group"></i>
+                                        <span>Kelompok</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
                         <li>

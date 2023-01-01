@@ -10,6 +10,7 @@ use App\Http\Controllers\InvestasiAdminController;
 use App\Http\Controllers\InvestasiController;
 use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\KambingController;
+use App\Http\Controllers\KelompokController;
 use App\Http\Controllers\LemburController;
 use App\Http\Controllers\ManagementUserController;
 use App\Http\Controllers\PencatatanController;
@@ -85,6 +86,7 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::put('/kambing', 'update')->name('kambing.update');
 			Route::get('/kambing/{id}/delete', 'destroy')->name('kambing.destroy')->middleware('isAdmin');
 			Route::get('/kambing-qrcode', 'qrcode')->name('kambing.qrcode');
+			Route::put('/kambing-jual', 'jual')->name('kambing.jual');
 		});
 	});
 
@@ -92,6 +94,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::middleware('isInvestor')->group(function () {
 		Route::controller(InvestasiController::class)->group(function () {
 			Route::get('/investasi', 'index')->name('investasi.index');
+			Route::get('/investasi/kambing-ongoing', 'kambing_ongoing')->name('investasi.kambing.ongoing');
+			Route::get('/investasi/kambing-sold', 'kambing_sold')->name('investasi.kambing.sold');
 		});
 	});
 
@@ -104,6 +108,16 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::put('/admin-investasi', 'update')->name('admin.investasi.update');
 			Route::get('/admin-investasi/{id}/edit', 'edit')->name('admin.investasi.edit');
 			Route::get('/admin-investasi/{id}/delete', 'destroy')->name('admin.investasi.delete');
+		});
+
+		// KELOMPOK
+		Route::controller(KelompokController::class)->group(function () {
+			Route::get('/admin-kelompok', 'index')->name('admin.kelompok.index');
+			Route::post('/admin-kelompok', 'store')->name('admin.kelompok.store');
+			Route::put('/admin-kelompok', 'update')->name('admin.kelompok.update');
+			Route::get('/admin-kelompok/create', 'create')->name('admin.kelompok.create');
+			Route::get('/admin-kelompok/{id}/edit', 'edit')->name('admin.kelompok.edit');
+			Route::get('/admin-kelompok/{id}/delete', 'destroy')->name('admin.kelompok.delete');
 		});
 
 		// ADMIN

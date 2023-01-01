@@ -16,4 +16,9 @@ class Kambing extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function kelompok()
+    {
+        return $this->belongsTo(Kelompok::class);
+    }
 }

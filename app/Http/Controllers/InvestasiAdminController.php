@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Investasi;
+use App\Models\Kelompok;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -14,7 +15,8 @@ class InvestasiAdminController extends Controller
         $tittle = "Data Investasi";
         $investor = User::where('role', 'investor')->get();
         $investasi = Investasi::all();
-        return view('admin.investasi_admin.index', compact(['tittle', 'investor', 'investasi']));
+        $kelompok = Kelompok::all();
+        return view('admin.investasi_admin.index', compact(['tittle', 'investor', 'investasi', 'kelompok']));
     }
 
     public function create()
@@ -24,37 +26,75 @@ class InvestasiAdminController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         $tgl_investasi = Carbon::parse($request->tgl_investasi)->format('Y-m-d');
+
         $this->validate($request, [
             'user_id' => ['required'],
+            'kelompok_id' => ['required'],
             'modal' => ['required', 'numeric'],
             'tgl_investasi' => ['required'],
             'kwitansi_investasi' => ['image', 'nullable'],
         ]);
 
-        if ($request->hasFile('kwitansi_investasi')){
-            $kwitansi_investasi = $request->file('kwitansi_investasi')->store('investasi/photo-kwitansi-investasi');
-            Investasi::create([
-                'user_id' => $request->user_id,
-                'tgl_investasi' => $tgl_investasi,
-                'modal' => $request->modal,
-                'kwitansi_investasi' => $kwitansi_investasi,
-            ]);
-            $notification = array(
-                'message' => 'Data investasi berhasil dibuat',
-                'alert-type' => 'success'
-            );
-            return back()->with($notification);
+        if ($request->kelompok_id != "mandiri") {
+            $kelompok_id = $request->kelompok_id;
+            if ($request->hasFile('kwitansi_investasi')){
+                $kwitansi_investasi = $request->file('kwitansi_investasi')->store('investasi/photo-kwitansi-investasi');
+                Investasi::create([
+                    'user_id' => $request->user_id,
+                    'kelompok_id' => $kelompok_id,
+                    'tgl_investasi' => $tgl_investasi,
+                    'modal' => $request->modal,
+                    'kwitansi_investasi' => $kwitansi_investasi,
+                ]);
+                $notification = array(
+                    'message' => 'Data investasi berhasil dibuat',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            } else {
+                Investasi::create([
+                    'user_id' => $request->user_id,
+                    'kelompok_id' => $kelompok_id,
+                    'tgl_investasi' => $tgl_investasi,
+                    'modal' => $request->modal,
+                ]);
+                $notification = array(
+                    'message' => 'Data investasi berhasil dibuat',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            }
         } else {
-            Investasi::create([
-                'user_id' => $request->user_id,
-                'tgl_investasi' => $tgl_investasi,
-                'modal' => $request->modal,
-            ]);
-            $notification = array(
-                'message' => 'Data investasi berhasil dibuat',
-                'alert-type' => 'success'
-            );
+            $kelompok_id = null;
+            if ($request->hasFile('kwitansi_investasi')){
+                $kwitansi_investasi = $request->file('kwitansi_investasi')->store('investasi/photo-kwitansi-investasi');
+                Investasi::create([
+                    'user_id' => $request->user_id,
+                    'kelompok_id' => $kelompok_id,
+                    'tgl_investasi' => $tgl_investasi,
+                    'modal' => $request->modal,
+                    'kwitansi_investasi' => $kwitansi_investasi,
+                ]);
+                $notification = array(
+                    'message' => 'Data investasi berhasil dibuat',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            } else {
+                Investasi::create([
+                    'user_id' => $request->user_id,
+                    'kelompok_id' => $kelompok_id,
+                    'tgl_investasi' => $tgl_investasi,
+                    'modal' => $request->modal,
+                ]);
+                $notification = array(
+                    'message' => 'Data investasi berhasil dibuat',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            }
         }
     }
 
@@ -110,6 +150,11 @@ class InvestasiAdminController extends Controller
 
     public function destroy($id)
     {
-        //
+        Investasi::findOrFail($id)->delete();
+        $notification = array(
+            'message' => 'Data investasi berhasil dihapus',
+            'alert-type' => 'success'
+        );
+        return redirect('/admin-investasi')->with($notification);
     }
 }

@@ -28,7 +28,7 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="flex-grow-1">
-                                    <p class="text-truncate font-size-14 mb-2">Total Investasi (Rp)</p>
+                                    <p class="text-truncate font-size-14 mb-2">Nilai Investasi (Rp)</p>
                                     <h4 class="mb-2">
                                         {{ $modal ?? 0 }}
                                     </h4>
@@ -38,7 +38,53 @@
                                 </div>
                                 <div class="avatar-sm">
                                     <span class="avatar-title bg-light text-primary rounded-3">
-                                        <i class="mdi mdi-currency-usd font-size-24"></i>
+                                        <i class="ri-money-dollar-box-line font-size-24"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div><!-- end cardbody -->
+                    </div><!-- end card -->
+                </div><!-- end col -->
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="flex-grow-1">
+                                    <p class="text-truncate font-size-14 mb-2">Tipe Investasi</p>
+                                    <h4 class="mb-2">
+                                        {{ $kelompok ?? 0 }}
+                                    </h4>
+                                    <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i
+                                                class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>dari
+                                        sebelumnya</p>
+                                </div>
+                                <div class="avatar-sm">
+                                    <span class="avatar-title bg-light text-danger rounded-3">
+                                        <i class="fas fa-check-double font-size-24"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div><!-- end cardbody -->
+                    </div><!-- end card -->
+                </div><!-- end col -->
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="flex-grow-1">
+                                    <p class="text-truncate font-size-14 mb-2">Total Investasi (Rp)</p>
+                                    <h4 class="mb-2">
+                                        {{ $modal_total ?? 0 }}
+                                    </h4>
+                                    <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i
+                                                class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>dari
+                                        sebelumnya</p>
+                                </div>
+                                <div class="avatar-sm">
+                                    <span class="avatar-title bg-light text-success rounded-3">
+                                        <i class="fas fa-money-check-alt font-size-24"></i>
                                     </span>
                                 </div>
                             </div>
@@ -50,22 +96,70 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="flex-grow-1">
-                                    <p class="text-truncate font-size-14 mb-2">Asset (Ekor)</p>
+                                    <p class="text-truncate font-size-14 mb-2">Persentase Investasi</p>
                                     <h4 class="mb-2">
-                                        {{ $asset ?? 0 }}
+                                        {{ $persentase ?? 0 }}%
                                     </h4>
-                                    <p class="text-muted mb-0"><span class="text-danger fw-bold font-size-12 me-2"><i
-                                                class="ri-arrow-right-down-line me-1 align-middle"></i>1.09%</span>dari
+                                    <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i
+                                                class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>dari
                                         sebelumnya</p>
                                 </div>
                                 <div class="avatar-sm">
-                                    <span class="avatar-title bg-light text-success rounded-3">
-                                        <i class="mdi mdi-cow font-size-24"></i>
+                                    <span class="avatar-title bg-light text-warning rounded-3">
+                                        <i class="fas fa-percent font-size-24"></i>
                                     </span>
                                 </div>
                             </div>
                         </div><!-- end cardbody -->
                     </div><!-- end card -->
+                </div><!-- end col -->
+                <div class="col-xl-3 col-md-6">
+                    <a href="{{ route('investasi.kambing.ongoing') }}">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-dark font-size-14 mb-2">Asset On going (Ekor)</p>
+                                        <h4 class="mb-2">
+                                            {{ $asset ?? 0 }}
+                                        </h4>
+                                        <p class="text-muted mb-0"><span class="text-danger fw-bold font-size-12 me-2"><i
+                                                    class="ri-arrow-right-down-line me-1 align-middle"></i>1.09%</span>dari
+                                            sebelumnya</p>
+                                    </div>
+                                    <div class="avatar-sm">
+                                        <span class="avatar-title bg-light text-primary rounded-3">
+                                            <i class="mdi mdi-cow font-size-24"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div><!-- end cardbody -->
+                        </div><!-- end card -->
+                    </a>
+                </div><!-- end col -->
+                <div class="col-xl-3 col-md-6">
+                    <a href="{{ route('investasi.kambing.sold') }}">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-dark font-size-14 mb-2">Asset Sold (Ekor)</p>
+                                        <h4 class="mb-2">
+                                            {{ $asset_sold ?? 0 }}
+                                        </h4>
+                                        <p class="text-muted mb-0"><span class="text-danger fw-bold font-size-12 me-2"><i
+                                                    class="ri-arrow-right-down-line me-1 align-middle"></i>1.09%</span>dari
+                                            sebelumnya</p>
+                                    </div>
+                                    <div class="avatar-sm">
+                                        <span class="avatar-title bg-light text-danger rounded-3">
+                                            <i class="mdi mdi-cow font-size-24"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div><!-- end cardbody -->
+                        </div><!-- end card -->
+                    </a>
                 </div><!-- end col -->
                 <div class="col-xl-3 col-md-6">
                     <div class="card">
@@ -74,14 +168,14 @@
                                 <div class="flex-grow-1">
                                     <p class="text-truncate font-size-14 mb-2">Keuntungan (Rp)</p>
                                     <h4 class="mb-2">
-                                        {{ $keuntungan ?? 0 }}
+                                        {{ $keuntungan_investor ?? 0 }}
                                     </h4>
                                     <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i
                                                 class="ri-arrow-right-up-line me-1 align-middle"></i>16.2%</span>dari
                                         sebelumnya</p>
                                 </div>
                                 <div class="avatar-sm">
-                                    <span class="avatar-title bg-light text-primary rounded-3">
+                                    <span class="avatar-title bg-light text-success rounded-3">
                                         <i class="mdi mdi-currency-btc font-size-24"></i>
                                     </span>
                                 </div>
@@ -103,7 +197,7 @@
                                         sebelumnya</p>
                                 </div>
                                 <div class="avatar-sm">
-                                    <span class="avatar-title bg-light text-success rounded-3">
+                                    <span class="avatar-title bg-light text-warning rounded-3">
                                         <i class="fas fa-calendar-alt font-size-24"></i>
                                     </span>
                                 </div>

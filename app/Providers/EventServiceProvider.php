@@ -9,30 +9,16 @@ use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
-    /**
-     * The event listener mappings for the application.
-     *
-     * @var array
-     */
-    protected $listen_email = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
-        ],
-    ];
-
     protected $listen = [
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             // ... other providers
             \SocialiteProviders\Google\GoogleExtendSocialite::class.'@handle',
         ],
+        Registered::class => [
+            SendEmailVerificationNotification::class,
+        ],
     ];
-    
 
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
     public function boot()
     {
         //

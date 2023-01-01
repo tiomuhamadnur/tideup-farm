@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Kelompok;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,8 +16,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('kambing', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('kelompok_id')->nullable();
+            
             $table->string('name')->nullable();
             $table->string('qr_code')->unique()->nullable();
             $table->string('uid')->unique()->nullable();
@@ -33,6 +37,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->on('users')->references('id');
+            $table->foreign('kelompok_id')->on('kelompok')->references('id');
         });
     }
 

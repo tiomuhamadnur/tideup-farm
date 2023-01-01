@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kambing;
+use App\Models\Kelompok;
 use App\Models\Pencatatan;
 use App\Models\User;
 use Carbon\Carbon;
@@ -16,7 +17,8 @@ class KambingController extends Controller
         $tittle = 'Data Kambing';
         $kambing = Kambing::all();
         $investor = User::where('role', 'investor')->get();
-        return view('admin.kambing.index', compact(['tittle', 'kambing', 'investor']));
+        $kelompok = Kelompok::all();
+        return view('admin.kambing.index', compact(['tittle', 'kambing', 'investor', 'kelompok']));
     }
 
     public function qrcode()
@@ -31,54 +33,141 @@ class KambingController extends Controller
         //
     }
 
+    public function jual(Request $request)
+    {
+        if (($request->hasFile('foto_jual') && $request->hasFile('kwitansi_jual')) && ($request->foto_jual != '' && $request->kwitansi_jual != '')) {
+            $foto_jual = $request->file('foto_jual')->store('photo-kambing-jual');
+            $kwitansi_jual = $request->file('kwitansi_jual')->store('photo-kwitansi-jual');
+            Kambing::findOrFail($request->id)->update([
+                "tgl_jual" => $request->tgl_jual,
+                "status" => "sold",
+                "harga_jual" => $request->harga_jual,
+                "bobot_jual" => $request->bobot_jual,
+                "foto_jual" => $foto_jual,
+                "kwitansi_jual" => $kwitansi_jual,
+            ]);
+            $notification = array(
+                'message' => 'Data penjualan kambing berhasil dibuat',
+                'alert-type' => 'success'
+            );
+            return back()->with($notification);
+        } else {
+            Kambing::findOrFail($request->id)->update([
+                "tgl_jual" => $request->tgl_jual,
+                "status" => "sold",
+                "harga_jual" => $request->harga_jual,
+                "bobot_jual" => $request->bobot_jual,
+            ]);
+            $notification = array(
+                'message' => 'Data penjualan kambing berhasil dibuat',
+                'alert-type' => 'success'
+            );
+            return back()->with($notification);
+        }
+    }
+
     public function store(Request $request)
     {
         $qr_code = Str::random(20);
         $tgl_beli = Carbon::parse($request->tgl_beli)->format('Y-m-d');
         $this->validate($request, [
-            'name' => ['required', 'unique:kambing,name,except,id'],
-            'user_id' => ['required'],
-            'tgl_beli' => ['required'],
-            'bobot_beli' => ['required', 'numeric'],
-            'harga_beli' => ['required', 'numeric'],
-            'foto_beli' => ['image', 'nullable'],
-            'kwitansi_beli' => ['image', 'nullable'],
+            'tipe' => ['required'],
         ]);
 
-        if (($request->hasFile('foto_beli') && $request->hasFile('kwitansi_beli')) && ($request->foto_beli != '' && $request->kwitansi_beli != '')) {
-            $foto_beli = $request->file('foto_beli')->store('photo-kambing-beli');
-            $kwitansi_beli = $request->file('kwitansi_beli')->store('photo-kwitansi-beli');
-            Kambing::create([
-                'name' => $request->name,
-                'user_id' => $request->user_id,
-                'qr_code' => $qr_code,
-                'tgl_beli' => $tgl_beli,
-                'bobot_beli' => $request->bobot_beli,
-                'harga_beli' => $request->harga_beli,
-                'status' => 'ongoing',
-                'foto_beli' => $foto_beli,
-                'kwitansi_beli' => $kwitansi_beli,
+        if ($request->tipe == 'mandiri'){
+            $this->validate($request, [
+                'name' => ['required', 'unique:kambing,name,except,id'],
+                'user_id' => ['required'],
+                'tgl_beli' => ['required'],
+                'bobot_beli' => ['required', 'numeric'],
+                'harga_beli' => ['required', 'numeric'],
+                'foto_beli' => ['image', 'nullable'],
+                'kwitansi_beli' => ['image', 'nullable'],
             ]);
-            $notification = array(
-                'message' => 'Data kambing berhasil dibuat',
-                'alert-type' => 'success'
-            );
-            return back()->with($notification);
-        } else {
-            Kambing::create([
-                'name' => $request->name,
-                'user_id' => $request->user_id,
-                'qr_code' => $qr_code,
-                'tgl_beli' => $tgl_beli,
-                'bobot_beli' => $request->bobot_beli,
-                'harga_beli' => $request->harga_beli,
-                'status' => 'ongoing',
+
+            if (($request->hasFile('foto_beli') && $request->hasFile('kwitansi_beli')) && ($request->foto_beli != '' && $request->kwitansi_beli != '')) {
+                $foto_beli = $request->file('foto_beli')->store('photo-kambing-beli');
+                $kwitansi_beli = $request->file('kwitansi_beli')->store('photo-kwitansi-beli');
+                Kambing::create([
+                    'name' => $request->name,
+                    'user_id' => $request->user_id,
+                    'qr_code' => $qr_code,
+                    'tgl_beli' => $tgl_beli,
+                    'bobot_beli' => $request->bobot_beli,
+                    'harga_beli' => $request->harga_beli,
+                    'status' => 'ongoing',
+                    'foto_beli' => $foto_beli,
+                    'kwitansi_beli' => $kwitansi_beli,
+                ]);
+                $notification = array(
+                    'message' => 'Data kambing berhasil dibuat',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            } else {
+                Kambing::create([
+                    'name' => $request->name,
+                    'user_id' => $request->user_id,
+                    'qr_code' => $qr_code,
+                    'tgl_beli' => $tgl_beli,
+                    'bobot_beli' => $request->bobot_beli,
+                    'harga_beli' => $request->harga_beli,
+                    'status' => 'ongoing',
+                ]);
+                $notification = array(
+                    'message' => 'Data kambing berhasil dibuat',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            }
+        }
+        
+        elseif($request->tipe = 'kelompok'){
+            $this->validate($request, [
+                'name' => ['required', 'unique:kambing,name,except,id'],
+                'kelompok_id' => ['required'],
+                'tgl_beli' => ['required'],
+                'bobot_beli' => ['required', 'numeric'],
+                'harga_beli' => ['required', 'numeric'],
+                'foto_beli' => ['image', 'nullable'],
+                'kwitansi_beli' => ['image', 'nullable'],
             ]);
-            $notification = array(
-                'message' => 'Data kambing berhasil dibuat',
-                'alert-type' => 'success'
-            );
-            return back()->with($notification);
+
+            if (($request->hasFile('foto_beli') && $request->hasFile('kwitansi_beli')) && ($request->foto_beli != '' && $request->kwitansi_beli != '')) {
+                $foto_beli = $request->file('foto_beli')->store('photo-kambing-beli');
+                $kwitansi_beli = $request->file('kwitansi_beli')->store('photo-kwitansi-beli');
+                Kambing::create([
+                    'name' => $request->name,
+                    'kelompok_id' => $request->kelompok_id,
+                    'qr_code' => $qr_code,
+                    'tgl_beli' => $tgl_beli,
+                    'bobot_beli' => $request->bobot_beli,
+                    'harga_beli' => $request->harga_beli,
+                    'status' => 'ongoing',
+                    'foto_beli' => $foto_beli,
+                    'kwitansi_beli' => $kwitansi_beli,
+                ]);
+                $notification = array(
+                    'message' => 'Data kambing berhasil dibuat',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            } else {
+                Kambing::create([
+                    'name' => $request->name,
+                    'kelompok_id' => $request->kelompok_id,
+                    'qr_code' => $qr_code,
+                    'tgl_beli' => $tgl_beli,
+                    'bobot_beli' => $request->bobot_beli,
+                    'harga_beli' => $request->harga_beli,
+                    'status' => 'ongoing',
+                ]);
+                $notification = array(
+                    'message' => 'Data kambing berhasil dibuat',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            }
         }
     }
 

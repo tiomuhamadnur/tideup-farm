@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pencatatan', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('kambing_id')->unsigned();
             $table->string('bobot');

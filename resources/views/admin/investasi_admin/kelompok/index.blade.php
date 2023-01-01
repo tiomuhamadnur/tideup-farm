@@ -39,17 +39,13 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Kelompok</th>
-                                        <th>Investasi (Rp)</th>
-                                        <th>Tgl. Investasi</th>
-                                        <th>Kwitansi Investasi</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
 
 
                                 <tbody>
-                                    @foreach ($investasi as $item)
+                                    @foreach ($kelompok as $item)
                                         <tr>
                                             <td class="ps-4">
                                                 <p class="text-xs font-weight-bold mb-0">
@@ -58,28 +54,8 @@
                                             </td>
                                             <td class="text-left">
                                                 <p class="text-xs font-weight-bold mb-0">
-                                                    <b>{{ $item->user->name }}</b>
+                                                    <b>{{ $item->name }}</b>
                                                 </p>
-                                            </td>
-                                            <td class="text-left">
-                                                <p class="text-xs font-weight-bold mb-0">
-                                                    <b>{{ $item->kelompok->name ?? '-' }}</b>
-                                                </p>
-                                            </td>
-                                            <td class="text-left">
-                                                <p class="text-xs font-weight-bold mb-0">
-                                                    {{ $item->modal }}
-                                                </p>
-                                            </td>
-                                            <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">
-                                                    {{ date('d F Y', strtotime($item->tgl_investasi)) }}
-                                                </p>
-                                            </td>
-                                            <td class="text-center">
-                                                <img class="img-thumbnail"
-                                                    @if ($item->kwitansi_investasi != null) src="{{ asset('storage/' . $item->kwitansi_investasi) }}" @else src="{{ asset('storage/photo-kambing-beli/default/default.png') }}" @endif
-                                                    style="height:50px">
                                             </td>
                                             <td class="text-center">
                                                 <div class="dropdown card-header-dropdown">
@@ -91,12 +67,13 @@
                                                         </span>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('admin.investasi.edit', $item->id) }}">
+                                                        <a class="dropdown-item" href="#" type="button"
+                                                            data-bs-toggle="modal" data-bs-target="#editKelompokModal"
+                                                            data-id="{{ $item->id }}" data-name="{{ $item->name }}">
                                                             Ubah
                                                         </a>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('admin.investasi.delete', $item->id) }}"
+                                                            href="{{ route('admin.kelompok.delete', $item->id) }}"
                                                             id="delete">Hapus</a>
                                                     </div>
                                                 </div>
@@ -117,12 +94,12 @@
         <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <form role="form" action="{{ route('admin.investasi.store') }}" method="POST"
+                    <form role="form" action="{{ route('admin.kelompok.store') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="modal-header">
                             <h4 class="text-uppercase" id="exampleModalLabel">
-                                <i class="fas fa-money-check-alt"></i>
+                                <i class="far fa-object-group"></i>
                                 Buat {{ $tittle }} Baru
                             </h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -130,82 +107,13 @@
                         <div class="modal-body">
 
                             <div class="mb-2">
-                                <label class="col-form-label">Investor :</label>
-                                <select name="user_id"
-                                    class="form-select @error('user_id')
-                                    is-invalid
-                                @enderror">
-                                    <option selected disabled>- Pilih Investor -</option>
-                                    @foreach ($investor as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('user_id')
-                                    <span class="invalid-feedback">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="mb-2">
-                                <label class="col-form-label">Kelompok :
-                                    <a href="#" class="btn btn-sm btn-success ms-2 me-2" type="button"
-                                        data-bs-toggle="modal" data-bs-target="#addKelompokModal" type="button"
-                                        tittle="Buat Kelompok Baru"><i class="fa fa-plus-circle"></i> Buat data
-                                        kelompok baru</a>
-                                </label>
-                                <select name="kelompok_id"
-                                    class="form-select @error('kelompok_id')
-                                    is-invalid
-                                @enderror">
-                                    <option selected disabled>- Pilih Kelompok -</option>
-                                    <option value="mandiri" class="bg-success">Mandiri</option>
-                                    @foreach ($kelompok as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('kelompok_id')
-                                    <span class="invalid-feedback">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="mb-2">
-                                <label class="col-form-label">Modal Investasi (Rp) :</label>
-                                <input type="text" name="modal"
-                                    class="form-control @error('modal')
+                                <label class="col-form-label">Kelompok :</label>
+                                <input type="text" name="name"
+                                    class="form-control @error('name')
                                 is-invalid
                                 @enderror"
-                                    value="{{ old('modal') }}" autocomplete="off">
-                                @error('modal')
-                                    <span class="invalid-feedback">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="mb-2">
-                                <label class="form-label">Tanggal
-                                    investasi :</label>
-                                <div class="input-group" id="datepicker2">
-                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                    <input type="text"
-                                        class="form-control @error('tgl_investasi')
-                                    is-invalid
-                                    @enderror"
-                                        placeholder="dd MM, yyyy" data-date-format="dd MM, yyyy"
-                                        data-date-container='#datepicker2' data-provide="datepicker"
-                                        data-date-autoclose="true" name="tgl_investasi"
-                                        value="{{ old('tgl_investasi') }}">
-                                    @error('tgl_investasi')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="mb-2">
-                                <label class="col-form-label">Kwitansi investasi :</label>
-                                <input
-                                    class="form-control @error('kwitansi_investasi')
-                                is-invalid
-                                @enderror"
-                                    type="file" name="kwitansi_investasi">
-                                @error('kwitansi_investasi')
+                                    autocomplete="off" placeholder="Nama kelompok">
+                                @error('name')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -220,7 +128,7 @@
             </div>
         </div>
     </div>
-    {{-- End Modals --}}
+    {{-- END MODALS --}}
 
     <!-- Modal Add Kelompok -->
     <div>
@@ -232,11 +140,9 @@
                         @csrf
                         <div class="modal-header">
                             <h4 class="text-uppercase" id="exampleModalLabel">
-                                <i class="far fa-object-group"></i>
                                 Buat Data Kelompok Investasi Baru
                             </h4>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="mb-2">
@@ -262,7 +168,57 @@
         </div>
     </div>
 
+    <!-- Modal Edit Kelompok -->
+    <div>
+        <div class="modal fade" id="editKelompokModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <form role="form" action="{{ route('admin.kelompok.update') }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('put')
+                        <div class="modal-header">
+                            <h4 class="text-uppercase" id="exampleModalLabel">
+                                Edit Data Kelompok Investasi
+                            </h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-2">
+                                <label class="col-form-label">Nama Kelompok :</label>
+                                <input type="text" name="id" id="id_update" hidden>
+                                <input type="text" name="name" id="name_update"
+                                    class="form-control @error('name')
+                                            is-invalid
+                                            @enderror"
+                                    value="{{ old('name') }}" autocomplete="off">
+                                @error('name')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="modal-footer mt-3">
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                    aria-label="Close">Batal</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @section('javascript')
+    <script>
+        $('#editKelompokModal').on('show.bs.modal', function(e) {
+            let id = $(e.relatedTarget).data('id');
+            let name = $(e.relatedTarget).data('name');
+            $('#id_update').val(id);
+            $('#name_update').val(name);
+        });
+    </script>
+
     @if (count($errors) > 0)
         <script type="text/javascript">
             $(document).ready(function() {

@@ -17,8 +17,8 @@ class Investasi extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function kambing()
+    public function kelompok()
     {
-        return $this->belongsTo(Kambing::class);
+        return $this->belongsTo(Kelompok::class);
     }
 }
